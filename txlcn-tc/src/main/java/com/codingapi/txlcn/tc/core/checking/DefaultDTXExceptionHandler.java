@@ -90,7 +90,7 @@ public class DefaultDTXExceptionHandler implements DTXExceptionHandler {
         if (ex instanceof UserRollbackException) {
             state = 0;
         }
-        if ((ex.getCause() != null && ex.getCause() instanceof UserRollbackException)) {
+        if (ex==null || (ex.getCause() != null && ex.getCause() instanceof UserRollbackException)) {
             state = 0;
         }
 

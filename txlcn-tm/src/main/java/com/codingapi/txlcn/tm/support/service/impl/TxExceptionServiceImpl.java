@@ -93,7 +93,7 @@ public class TxExceptionServiceImpl implements TxExceptionService {
         if (lists.size()<=0) {
             return -1;
         }
-        return lists.get(0);
+        return lists.get(0).intValue();
     }
     
     @Override

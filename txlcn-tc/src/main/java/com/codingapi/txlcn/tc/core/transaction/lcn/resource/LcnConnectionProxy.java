@@ -50,6 +50,9 @@ public class LcnConnectionProxy implements Connection {
                 log.debug("rollback transaction type[lcn] proxy connection:{}.", this);
                 connection.rollback();
             }
+            if(connection.isClosed()) {
+                return RpcResponseState.success;
+            }
             connection.close();
             log.debug("transaction type[lcn] proxy connection:{} closed.", this);
             return RpcResponseState.success;

@@ -45,7 +45,7 @@ public class RpcConfig {
     /**
      * 断线重连次数
      */
-    private int reconnectCount = 8;
+    private int reconnectCount = Integer.MAX_VALUE;
 
     /**
      * 重连延迟时间(ms)
