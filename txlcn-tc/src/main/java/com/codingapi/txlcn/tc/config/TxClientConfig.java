@@ -30,14 +30,14 @@ import java.util.List;
  * @author lorne
  */
 @Data
-@ConfigurationProperties(prefix = "tx-lcn.client")
-@Component
+//@ConfigurationProperties(prefix = "tx-lcn.client")
+//@Component
 public class TxClientConfig {
 
     public TxClientConfig() {
         this.dtxAspectOrder = 0;
         this.dtxTime = 30 * 1000;
-        this.managerAddress = Collections.singletonList("127.0.0.1:8070");
+//        this.managerAddress = Collections.singletonList("127.0.0.1:8070");
     }
 
     /**

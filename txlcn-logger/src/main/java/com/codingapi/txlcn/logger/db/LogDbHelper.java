@@ -19,11 +19,16 @@ import com.alibaba.fastjson.JSON;
 import com.codingapi.txlcn.logger.exception.TxLoggerException;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -40,22 +45,42 @@ public class LogDbHelper implements DisposableBean {
 
     private QueryRunner queryRunner;
 
-    public LogDbHelper(LogDbProperties logDbProperties) throws TxLoggerException {
-        log.info("log-db Properties: {}", JSON.toJSONString(logDbProperties));
-        if (logDbProperties.getDriverClassName() == null) {
-            throw new TxLoggerException("Init TxLogger error. see config [com.codingapi.txlcn.logger.db.LogDbProperties]");
-        }
-        hikariDataSource = new HikariDataSource(logDbProperties);
-        queryRunner = new QueryRunner(hikariDataSource);
+    public LogDbHelper(DataSource loggerSource) throws TxLoggerException {
+//        log.info("log-db Properties: {}", JSON.toJSONString(logDbProperties));
+//        if (logDbProperties.getDriverClassName() == null) {
+//            throw new TxLoggerException("Init TxLogger error. see config [com.codingapi.txlcn.logger.db.LogDbProperties]");
+//        }
+//        hikariDataSource = new HikariDataSource(logDbProperties);
+        queryRunner = new QueryRunner(loggerSource);
         log.info("log-db prepared.");
     }
 
     public int update(String sql, Object... params) {
+        Connection conn = null;
         try {
-            return queryRunner.update(sql, params);
+            conn = queryRunner.getDataSource().getConnection();
+            conn.setAutoCommit(false);
+            int i = queryRunner.update(conn, sql, params);
+            conn.commit();
+            return i;
         } catch (SQLException e) {
-            log.error("update error", e);
+            log.error("update error! connection=" + conn.getClass().getName(), e);
+            if (conn != null) {
+                try{
+                    conn.rollback();
+                }catch (Exception ex){
+                }
+            }
             return 0;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    DbUtils.close(conn);
+                }
+            }catch (Exception e){
+
+            }
         }
     }
 

@@ -27,6 +27,7 @@ import com.codingapi.txlcn.tc.corelog.aspect.AspectLogger;
 import com.codingapi.txlcn.tc.txmsg.ReliableMessenger;
 import com.codingapi.txlcn.tc.txmsg.TMReporter;
 import com.codingapi.txlcn.tc.core.template.TransactionCleanTemplate;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class SimpleDTXChecking implements DTXChecking, DisposableBean {
 
     private static final Map<String, ScheduledFuture> delayTasks = new ConcurrentHashMap<>();
     private static final ScheduledExecutorService scheduledExecutorService =
-            Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
+            Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors(),  new ThreadFactoryBuilder().setNameFormat("DelayChecking-%d").build());
 
     private static final TxLogger txLogger = TxLogger.newLogger(SimpleDTXChecking.class);
 

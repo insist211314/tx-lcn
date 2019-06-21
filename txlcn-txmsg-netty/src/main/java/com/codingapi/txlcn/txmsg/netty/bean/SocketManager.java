@@ -22,6 +22,7 @@ import com.codingapi.txlcn.txmsg.dto.MessageDto;
 import com.codingapi.txlcn.txmsg.dto.RpcCmd;
 import com.codingapi.txlcn.txmsg.dto.RpcResponseState;
 import com.codingapi.txlcn.txmsg.exception.RpcException;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.group.ChannelGroup;
@@ -52,7 +53,7 @@ public class SocketManager {
     private SocketManager() {
         channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
         appNames = new ConcurrentHashMap<>();
-        executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setNameFormat("SocketManager-%d").build());
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             executorService.shutdown();
@@ -93,6 +94,7 @@ public class SocketManager {
         // 设置了过期时间，到时间后清除
         try {
             executorService.schedule(() -> {
+                Thread.currentThread().setName("SocketManager-removeChannel-" + Thread.currentThread().getName());
                 appNames.remove(key);
             }, attrDelayTime, TimeUnit.MILLISECONDS);
         } catch (RejectedExecutionException ignored) {

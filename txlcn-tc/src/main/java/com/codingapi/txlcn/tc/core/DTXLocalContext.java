@@ -35,6 +35,10 @@ public class DTXLocalContext {
     private final static ThreadLocal<DTXLocalContext> currentLocal = new InheritableThreadLocal<>();
 
     /**
+     * 是否存在子事务,默认不存在
+     */
+    private Boolean subTransaction = false;
+    /**
      * 事务类型
      */
     private String transactionType;
@@ -180,5 +184,19 @@ public class DTXLocalContext {
     public static int transactionState(int userDtxState) {
         DTXLocalContext dtxLocalContext = Objects.requireNonNull(currentLocal.get(), "DTX can't be null.");
         return userDtxState == 1 ? dtxLocalContext.sysTransactionState : userDtxState;
+    }
+
+    public Boolean getSubTransaction() {
+        return subTransaction;
+    }
+
+    public Boolean getAndCleanSubTransaction() {
+        Boolean has = subTransaction;
+        subTransaction = false;
+        return has;
+    }
+
+    public void setSubTransaction(Boolean subTransaction) {
+        this.subTransaction = subTransaction;
     }
 }

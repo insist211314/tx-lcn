@@ -15,11 +15,15 @@
  */
 package com.codingapi.txlcn.common.util;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.StringUtils;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.Objects;
 
 /**
@@ -39,9 +43,9 @@ public class ApplicationInformation {
      */
     public static String modId(ConfigurableEnvironment environment, ServerProperties serverProperties) {
 
-        String applicationName = environment.getProperty("spring.application.name");
-        applicationName = StringUtils.hasText(applicationName) ? applicationName : "application";
-        return applicationName + ":" + serverPort(serverProperties);
+//        String applicationName = environment.getProperty("spring.application.name");
+//        applicationName = StringUtils.hasText(applicationName) ? applicationName : "application";
+        return getIpAddress() + ":" + serverPort(serverProperties);
     }
 
     /**
@@ -75,5 +79,40 @@ public class ApplicationInformation {
     public static int serverPort(ServerProperties serverProperties) {
         return Objects.isNull(serverProperties) ? 0 : (Objects.isNull(serverProperties.getPort()) ? 8080 :
                 serverProperties.getPort());
+    }
+
+    /**
+     * 根据网卡获得IP地址
+     *
+     * @throws SocketException
+     * @throws UnknownHostException
+     */
+    public static String getIpAddress(){
+        try{
+            String ip = "";
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface network = en.nextElement();
+                String name = network.getName();
+                if (name.contains("docker") && !name.contains("lo") && !name.contains("br-")) {
+                    continue;
+                }
+                for (Enumeration<InetAddress> enumIpAddr = network.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    //获得IP
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (inetAddress.isLoopbackAddress()) {
+                        continue;
+                    }
+                    String ipAddress = inetAddress.getHostAddress();
+                    if (!ipAddress.contains("::") && !ipAddress.contains("0:0:") && !ipAddress.contains("fe80")) {
+                        if (!"127.0.0.1".equals(ip)) {
+                            ip = ipAddress;
+                        }
+                    }
+                }
+            }
+            return ip;
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

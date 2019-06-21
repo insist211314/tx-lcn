@@ -15,41 +15,23 @@
  */
 package com.codingapi.txlcn.logger.db;
 
-import com.zaxxer.hikari.HikariConfig;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 /**
  * @author lorne
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@ConfigurationProperties(prefix = "tx-lcn.logger")
-@Component
+//@ConfigurationProperties(prefix = "tx-lcn.logger")
+//@Component
 @Slf4j
-public class LogDbProperties extends HikariConfig {
+public class LogDbProperties {
 
     private boolean enabled = false;
 
     private boolean onlyError = true;
 
-    public LogDbProperties(@Autowired(required = false) DataSourceProperties dataSourceProperties) {
-        if (Objects.isNull(dataSourceProperties) ||
-                Objects.isNull(dataSourceProperties.getDriverClassName()) ||
-                Objects.isNull(dataSourceProperties.getUrl())) {
-            log.info("TxLogger used user's config.");
-            return;
-        }
-        this.setDriverClassName(dataSourceProperties.getDriverClassName());
-        this.setJdbcUrl(dataSourceProperties.getUrl());
-        this.setUsername(dataSourceProperties.getUsername());
-        this.setPassword(dataSourceProperties.getPassword());
+    public LogDbProperties() {
+
     }
 }

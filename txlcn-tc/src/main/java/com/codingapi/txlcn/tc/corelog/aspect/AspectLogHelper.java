@@ -25,8 +25,11 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Description: H2数据库操作
@@ -41,6 +44,8 @@ public class AspectLogHelper implements LogHelper {
 
     private final H2DbHelper h2DbHelper;
 
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Autowired
     public AspectLogHelper(H2DbHelper h2DbHelper) {
         this.h2DbHelper = h2DbHelper;
@@ -50,22 +55,22 @@ public class AspectLogHelper implements LogHelper {
     public void init() {
         h2DbHelper.update("CREATE TABLE IF NOT EXISTS TXLCN_LOG " +
                 "(" +
-                "ID BIGINT NOT NULL AUTO_INCREMENT, " +
+                "ID VARCHAR(32) NOT NULL, " +
                 "UNIT_ID VARCHAR(32) NOT NULL," +
                 "GROUP_ID VARCHAR(64) NOT NULL," +
                 "METHOD_STR VARCHAR(512) NOT NULL ," +
                 "BYTES BLOB NOT NULL," +
                 "GROUP_ID_HASH BIGINT NOT NULL," +
                 "UNIT_ID_HASH BIGINT NOT NULL," +
-                "TIME BIGINT NOT NULL, " +
+                "TIME VARCHAR(32) NOT NULL, " +
                 "PRIMARY KEY(ID) )");
         log.info("Aspect log table finished (H2 DATABASE)");
     }
 
 
     public boolean save(AspectLog txLog) {
-        String insertSql = "INSERT INTO TXLCN_LOG(UNIT_ID,GROUP_ID,BYTES,METHOD_STR,GROUP_ID_HASH,UNIT_ID_HASH,TIME) VALUES(?,?,?,?,?,?,?)";
-        return h2DbHelper.update(insertSql, txLog.getUnitId(), txLog.getGroupId(), txLog.getBytes(), txLog.getMethodStr(), txLog.getGroupId().hashCode(), txLog.getUnitId().hashCode(), txLog.getTime()) > 0;
+        String insertSql = "INSERT INTO TXLCN_LOG(ID,UNIT_ID,GROUP_ID,BYTES,METHOD_STR,GROUP_ID_HASH,UNIT_ID_HASH,TIME) VALUES(?,?,?,?,?,?,?,?)";
+        return h2DbHelper.update(insertSql, UUID.randomUUID().toString().replace("-", ""), txLog.getUnitId(), txLog.getGroupId(), txLog.getBytes(), txLog.getMethodStr(), txLog.getGroupId().hashCode(), txLog.getUnitId().hashCode(), format.format(new Date(txLog.getTime()))) > 0;
     }
 
     public boolean deleteAll() {
@@ -84,13 +89,15 @@ public class AspectLogHelper implements LogHelper {
     }
 
     public boolean delete(long groupIdHash, long unitIdHash) {
-        String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID_HASH = ? and UNIT_ID_HASH = ?";
-        return h2DbHelper.update(sql, groupIdHash, unitIdHash) > 0;
+        return true;
+//        String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID_HASH = ? and UNIT_ID_HASH = ?";
+//        return h2DbHelper.update(sql, groupIdHash, unitIdHash) > 0;
     }
 
     public boolean delete(String groupId) {
-        String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID = ?";
-        return h2DbHelper.update(sql, groupId) > 0;
+        return true;
+//        String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID = ?";
+//        return h2DbHelper.update(sql, groupId) > 0;
     }
 
     public List<AspectLog> findAll() {

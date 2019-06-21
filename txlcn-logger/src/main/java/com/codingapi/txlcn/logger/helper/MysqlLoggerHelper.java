@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Description:
@@ -58,7 +59,7 @@ public class MysqlLoggerHelper implements TxLcnLogDbHelper {
     public void init() {
         if (logDbProperties.isEnabled()) {
             String sql = "CREATE TABLE IF NOT EXISTS `t_logger`  (\n" +
-                    "  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n" +
+                    "  `id` varchar(32),\n" +
                     "  `group_id` varchar(64)  NOT NULL ,\n" +
                     "  `unit_id` varchar(32)  NOT NULL ,\n" +
                     "  `tag` varchar(50)  NOT NULL ,\n" +
@@ -75,8 +76,8 @@ public class MysqlLoggerHelper implements TxLcnLogDbHelper {
     @Override
     public int insert(TxLog txLoggerInfo) {
         if (logDbProperties.isEnabled()) {
-            String sql = "insert into t_logger(group_id,unit_id,tag,content,create_time,app_name) values(?,?,?,?,?,?)";
-            return dbHelper.update(sql, txLoggerInfo.getGroupId(), txLoggerInfo.getUnitId(), txLoggerInfo.getTag(),
+            String sql = "insert into t_logger(id, group_id,unit_id,tag,content,create_time,app_name) values(?,?,?,?,?,?,?)";
+            return dbHelper.update(sql, UUID.randomUUID().toString().replace("-", ""), txLoggerInfo.getGroupId(), txLoggerInfo.getUnitId(), txLoggerInfo.getTag(),
                     Strings.format(txLoggerInfo.getContent(), Maps.of("xid", txLoggerInfo.getGroupId(),
                             "uid", txLoggerInfo.getUnitId()), txLoggerInfo.getArgs()),
                     txLoggerInfo.getCreateTime(), txLoggerInfo.getAppName());

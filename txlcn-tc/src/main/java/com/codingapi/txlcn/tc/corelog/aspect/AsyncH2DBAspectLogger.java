@@ -18,6 +18,7 @@ package com.codingapi.txlcn.tc.corelog.aspect;
 import com.codingapi.txlcn.tc.aspect.TransactionInfo;
 import com.codingapi.txlcn.common.exception.SerializerException;
 import com.codingapi.txlcn.common.util.serializer.SerializerContext;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 public class AsyncH2DBAspectLogger implements AspectLogger {
 
     private static final ExecutorService executorService =
-            Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(),  new ThreadFactoryBuilder().setNameFormat("AsyncH2DBAspectLogger-%d").build());
 
 
     private final AspectLogHelper txLogHelper;

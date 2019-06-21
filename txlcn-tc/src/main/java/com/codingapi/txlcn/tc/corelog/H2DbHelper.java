@@ -15,16 +15,20 @@
  */
 package com.codingapi.txlcn.tc.corelog;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import com.codingapi.txlcn.tc.core.DTXLocalContext;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -38,18 +42,18 @@ import java.sql.SQLException;
 @Component
 public class H2DbHelper implements DisposableBean {
 
-    private final HikariDataSource hikariDataSource;
+//    private final HikariDataSource hikariDataSource;
 
     private final QueryRunner queryRunner;
 
     @Autowired
-    public H2DbHelper(H2DbProperties h2DbProperties) {
-        HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDriverClassName(org.h2.Driver.class.getName());
-        hikariConfig.setJdbcUrl(String.format("jdbc:h2:%s", h2DbProperties.getFilePath()));
-        hikariDataSource = new HikariDataSource(hikariConfig);
-        queryRunner = new QueryRunner(hikariDataSource);
-        log.info("Init H2 DATABASE at {}", h2DbProperties.getFilePath());
+    public H2DbHelper(DataSource loggerSource) {
+//        HikariConfig hikariConfig = new HikariConfig();
+//        hikariConfig.setDriverClassName(org.h2.Driver.class.getName());
+//        hikariConfig.setJdbcUrl(String.format("jdbc:h2:%s", h2DbProperties.getFilePath()));
+//        hikariDataSource = new HikariDataSource(hikariConfig);
+        queryRunner = new QueryRunner(loggerSource);
+//        log.info("Init H2 DATABASE at {}", h2DbProperties.getFilePath());
     }
 
     public QueryRunner queryRunner() {
@@ -57,11 +61,34 @@ public class H2DbHelper implements DisposableBean {
     }
 
     public int update(String sql, Object... params) {
+        Connection conn = null;
         try {
-            return queryRunner.update(sql, params);
+            DTXLocalContext dtxLocalContext = DTXLocalContext.cur();
+            if(dtxLocalContext!=null)
+                dtxLocalContext.setSubTransaction(true);
+            conn = queryRunner.getDataSource().getConnection();
+            conn.setAutoCommit(false);
+            int i = queryRunner.update(conn, sql, params);
+            conn.commit();
+            return i;
         } catch (SQLException e) {
-            log.error("update error", e);
+            log.error("update error! connection=" + conn.getClass().getName(), e);
+            if (conn != null) {
+                try{
+                    conn.rollback();
+                }catch (Exception ex){
+                }
+            }
             return 0;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    DbUtils.close(conn);
+                }
+            }catch (Exception e){
+
+            }
         }
     }
 
@@ -86,7 +113,7 @@ public class H2DbHelper implements DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        hikariDataSource.close();
+//        hikariDataSource.close();
         log.info("log hikariDataSource close.");
     }
 }

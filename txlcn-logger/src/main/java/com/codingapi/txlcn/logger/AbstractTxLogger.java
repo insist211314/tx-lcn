@@ -19,6 +19,7 @@ import com.codingapi.txlcn.common.util.SpringUtils;
 import com.codingapi.txlcn.common.util.Transactions;
 import com.codingapi.txlcn.logger.db.LogDbProperties;
 import com.codingapi.txlcn.logger.db.TxLog;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -37,14 +38,13 @@ import java.util.concurrent.Executors;
  */
 public abstract class AbstractTxLogger implements TxLogger {
 
-    private final ExecutorService loggerSaveService;
+    private static final ExecutorService loggerSaveService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(), new ThreadFactoryBuilder().setNameFormat("AbstractTxLogger-%d").build());
 
     private final Logger LOG;
 
     private LogDbProperties logDbProperties;
 
     public AbstractTxLogger(Class<?> className) {
-        this.loggerSaveService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         this.LOG = LoggerFactory.getLogger(className);
     }
 

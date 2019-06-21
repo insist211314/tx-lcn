@@ -54,7 +54,7 @@ public class ServerRpcAnswer implements RpcAnswer, DisposableBean {
                 Math.max(Runtime.getRuntime().availableProcessors() * 5, managerConfig.getConcurrentLevel()));
         this.rpcClient = rpcClient;
         this.executorService = Executors.newFixedThreadPool(managerConfig.getConcurrentLevel(),
-                new ThreadFactoryBuilder().setDaemon(false).setNameFormat("tm-rpc-service-%d").build());
+                new ThreadFactoryBuilder().setDaemon(false).setNameFormat("ServerRpc-%d").build());
         this.rpcBeanHelper = rpcBeanHelper;
     }
 
@@ -62,6 +62,8 @@ public class ServerRpcAnswer implements RpcAnswer, DisposableBean {
     @Override
     public void callback(RpcCmd rpcCmd) {
         executorService.submit(() -> {
+            Thread.currentThread().setName("ServerRpc-" + Thread.currentThread().getName());
+
             try {
                 TransactionCmd transactionCmd = parser(rpcCmd);
                 String action = transactionCmd.getMsg().getAction();

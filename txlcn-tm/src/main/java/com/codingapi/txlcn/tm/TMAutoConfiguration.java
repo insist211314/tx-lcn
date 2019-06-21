@@ -24,6 +24,7 @@ import com.codingapi.txlcn.tm.config.TxManagerConfig;
 import com.codingapi.txlcn.tm.core.storage.FastStorage;
 import com.codingapi.txlcn.tm.core.storage.FastStorageProvider;
 import com.codingapi.txlcn.tm.core.storage.redis.RedisStorage;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -61,7 +62,7 @@ public class TMAutoConfiguration {
     public ExecutorService executorService() {
         int coreSize = Runtime.getRuntime().availableProcessors() * 2;
         return new ThreadPoolExecutor(coreSize, coreSize, 0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<>()) {
+                new LinkedBlockingQueue<>(), new ThreadFactoryBuilder().setNameFormat("TMAutoConfiguration-%d").build()) {
             @Override
             public void shutdown() {
                 super.shutdown();

@@ -10,7 +10,7 @@ mvn clean package -DskipTests docker:build
 1 、 命令行传参数运行
 
 ```
-docker run -p 7970:7970 -p 8070:8070 --restart always --name tm -e spring.datasource.url=jdbc:mysql://127.0.0.1:3306/tx_manager -e spring.datasource.username=root -e spring.datasource.password=root -e spring.redis.host=127.0.0.1 -e spring.redis.port=6379 -e spring.redis.password= -e tx-lcn.manager.admin-key=123456 -d codingapi/txlcn-tm
+docker run -p 7970:7970 -p 8070:8070 --restart always --name tm -e spring.datasource.url=jdbc:mysql://127.0.0.1:3306/tx_manager -e spring.datasource.username=root -e spring.datasource.password=123456 -e spring.redis.host=127.0.0.1 -e spring.redis.port=6379 -e spring.redis.password= -e tx-lcn.manager.admin-key=123456 -d codingapi/txlcn-tm
 ```
 - 说明
 - -p 端口映射 宿主机器端口:容器内端口
@@ -27,7 +27,7 @@ server.port=7970
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 spring.datasource.url=jdbc:mysql://127.0.0.1:3306/tx-manager?characterEncoding=UTF-8
 spring.datasource.username=root
-spring.datasource.password=root
+spring.datasource.password=123456
 #mybatis.configuration.map-underscore-to-camel-case=true
 #mybatis.configuration.use-generated-keys=true
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect

@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.tc.aspect;
 
+import com.codingapi.txlcn.logger.db.LoggerDataSource;
 import com.codingapi.txlcn.tc.aspect.weave.DTXResourceWeaver;
 import com.codingapi.txlcn.tc.config.TxClientConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,9 @@ public class DataSourceAspect implements Ordered {
 
     @Around("execution(* javax.sql.DataSource.getConnection(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
+        if (point.getTarget() instanceof LoggerDataSource){
+            return point.proceed();
+        }
         return dtxResourceWeaver.getConnection(() -> (Connection) point.proceed());
     }
 

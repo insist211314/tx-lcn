@@ -43,7 +43,7 @@ public class DTXResourceWeaver {
 
     public Object getConnection(ConnectionCallback connectionCallback) throws Throwable {
         DTXLocalContext dtxLocalContext = DTXLocalContext.cur();
-        if (Objects.nonNull(dtxLocalContext) && dtxLocalContext.isProxy()) {
+        if (Objects.nonNull(dtxLocalContext) && dtxLocalContext.isProxy() && !dtxLocalContext.getAndCleanSubTransaction()) {
             String transactionType = dtxLocalContext.getTransactionType();
             TransactionResourceProxy resourceProxy = txLcnBeanHelper.loadTransactionResourceProxy(transactionType);
             Connection connection = resourceProxy.proxyConnection(connectionCallback);

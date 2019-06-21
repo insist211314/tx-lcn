@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.tm.config;
 
+import com.codingapi.txlcn.common.util.ApplicationInformation;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -46,7 +47,7 @@ public class TxManagerConfig {
     /**
      * manager host
      */
-    private String host = "127.0.0.1";
+    private String host;
 
     /**
      * support  port
@@ -106,4 +107,12 @@ public class TxManagerConfig {
     public long getDtxLockTime() {
         return dtxLockTime == -1 ? dtxTime : dtxLockTime;
     }
+
+    public String getHost() {
+        if(this.host == null){
+            this.host = ApplicationInformation.getIpAddress();
+        }
+        return this.host;
+    }
+
 }
