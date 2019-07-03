@@ -49,6 +49,16 @@ public class MessageConstants {
     public static final String ACTION_ASK_TRANSACTION_STATE = "askTransactionState";
 
     /**
+     * 询问事务状态,如果事务没提交,则直接设置为回滚
+     */
+    public static final String ACTION_ASK_TRANSACTION_STATE_OR_ROLLBACK = "askTransactionStateOrRollback";
+
+    /**
+     * 设置事务状态为回滚
+     */
+    public static final String ACTION_TRANSACTION_STATE_ROLLBACK = "transactionStateRollback";
+
+    /**
      * 写异常记录
      */
     public static final String ACTION_WRITE_EXCEPTION = "writeException";

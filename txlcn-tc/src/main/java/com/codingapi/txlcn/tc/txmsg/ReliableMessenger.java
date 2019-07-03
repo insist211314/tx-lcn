@@ -91,6 +91,25 @@ public interface ReliableMessenger {
     int askTransactionState(String groupId, String unitId) throws RpcException;
 
     /**
+     * 询问事务状态,没有事务状态则设置为回滚事务状态
+     *
+     * @param groupId groupId
+     * @param unitId  unitId
+     * @return 事务无状态 （0,1,-1）
+     * @throws RpcException Non TM
+     */
+    int askTransactionStateOrRollback(String groupId, String unitId) throws RpcException;
+
+    /**
+     * 设置事务状态为ROLLBACK
+     *
+     * @param groupId groupId
+     * @param unitId  unitId
+     * @throws RpcException Non TM
+     */
+    void transactionStateRollback(String groupId, String unitId) throws RpcException;
+
+    /**
      * 报告失效的TM
      *
      * @param invalidTMSet 失效的TM集合

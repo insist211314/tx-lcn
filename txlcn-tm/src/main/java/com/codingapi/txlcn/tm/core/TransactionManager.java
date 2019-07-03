@@ -43,7 +43,7 @@ public interface TransactionManager {
      * @param transactionState transactionState
      * @throws TransactionException TransactionException
      */
-    void join(DTXContext dtxContext, String unitId, String unitType, String modId, int transactionState) throws TransactionException;
+    void join(DTXContext dtxContext, String unitId, String unitType, String modId, String remoteKey, int transactionState) throws TransactionException;
 
     /**
      * 提交分布式事务。出错会记录异常记录
@@ -77,11 +77,24 @@ public interface TransactionManager {
     int transactionState(String groupId);
 
     /**
+     * 获取事务状态,没有则设置事务状态为回滚（0）
+     *
+     * @param groupId groupId
+     * @return transactionState
+     */
+    int transactionStateOrClean(String groupId);
+
+    /**
      * 获取事务状态。从FastStorage
      *
      * @param groupId groupId
      * @return transactionState
      */
     int transactionStateFromFastStorage(String groupId);
+
+    /**
+     * 设置事务状态。从FastStorage
+     */
+    void saveTransactionState(String groupId, int state);
 
 }

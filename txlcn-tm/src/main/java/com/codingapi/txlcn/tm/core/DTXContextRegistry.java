@@ -57,4 +57,12 @@ public interface DTXContextRegistry {
      * @return state
      */
     int transactionState(String groupId);
+
+
+    /**
+     * 设置事务状态
+     * @param groupId
+     * @param state
+     */
+    void saveTransactionState(String groupId, int state);
 }

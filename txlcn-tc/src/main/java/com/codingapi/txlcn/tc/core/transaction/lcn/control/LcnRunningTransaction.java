@@ -24,6 +24,8 @@ import com.codingapi.txlcn.tc.core.DTXLocalControl;
 import com.codingapi.txlcn.tc.core.TxTransactionInfo;
 import com.codingapi.txlcn.tc.core.template.TransactionCleanTemplate;
 import com.codingapi.txlcn.tc.core.template.TransactionControlTemplate;
+import com.codingapi.txlcn.tc.txmsg.ReliableMessenger;
+import com.codingapi.txlcn.txmsg.exception.RpcException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,12 +43,15 @@ public class LcnRunningTransaction implements DTXLocalControl {
     private final TransactionCleanTemplate transactionCleanTemplate;
     
     private final TransactionControlTemplate transactionControlTemplate;
+
+    private final ReliableMessenger reliableMessenger;
     
     @Autowired
     public LcnRunningTransaction(TransactionCleanTemplate transactionCleanTemplate,
-                                 TransactionControlTemplate transactionControlTemplate) {
+                                 TransactionControlTemplate transactionControlTemplate,ReliableMessenger reliableMessenger) {
         this.transactionCleanTemplate = transactionCleanTemplate;
         this.transactionControlTemplate = transactionControlTemplate;
+        this.reliableMessenger = reliableMessenger;
     }
     
     
@@ -60,9 +65,12 @@ public class LcnRunningTransaction implements DTXLocalControl {
     @Override
     public void onBusinessCodeError(TxTransactionInfo info, Throwable throwable) {
         try {
+            reliableMessenger.transactionStateRollback(info.getGroupId(), info.getUnitId());
             transactionCleanTemplate.clean(info.getGroupId(), info.getUnitId(), info.getTransactionType(), 0);
         } catch (TransactionClearException e) {
             log.error("{} > clean transaction error." , Transactions.LCN);
+        } catch (RpcException e) {
+            e.printStackTrace();
         }
     }
     

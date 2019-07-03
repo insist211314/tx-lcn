@@ -139,22 +139,30 @@ public class TransactionControlTemplate {
      * @param state           transactionState
      */
     public void notifyGroup(String groupId, String unitId, String transactionType, int state) {
+        int exState = state;
         try {
             txLogger.txTrace(
                     groupId, unitId, "notify group > transaction type: {}, state: {}.", transactionType, state);
             if (globalContext.isDTXTimeout()) {
                 throw new LcnBusinessException("dtx timeout.");
             }
-            state = reliableMessenger.notifyGroup(groupId, state);
-            transactionCleanTemplate.clean(groupId, unitId, transactionType, state);
+            exState = reliableMessenger.notifyGroup(groupId, state);
+            transactionCleanTemplate.clean(groupId, unitId, transactionType, exState);
         } catch (TransactionClearException e) {
             txLogger.trace(groupId, unitId, Transactions.TE, "clean transaction fail.");
         } catch (RpcException e) {
-            dtxExceptionHandler.handleNotifyGroupMessageException(Arrays.asList(groupId, state, unitId, transactionType), e);
+            dtxExceptionHandler.handleNotifyGroupMessageException(Arrays.asList(groupId, exState, unitId, transactionType), e);
         } catch (LcnBusinessException e) {
             // 关闭事务组失败
-            dtxExceptionHandler.handleNotifyGroupBusinessException(Arrays.asList(groupId, state, unitId, transactionType), e.getCause());
+            dtxExceptionHandler.handleNotifyGroupBusinessException(Arrays.asList(groupId, exState, unitId, transactionType), e.getCause());
+            if("dtx timeout.".equals(e.getMessage())){
+                throw new TransactionException("事务回滚,执行时间过长！");
+            }
         }
-        txLogger.txTrace(groupId, unitId, "notify group exception state {}.", state);
+        txLogger.txTrace(groupId, unitId, "notify group exception state {}.", exState);
+
+        if(state==1 && exState==0 && !DTXLocalContext.hasThrowable()){
+            throw new TransactionException("事务回滚,可能执行时间过长超时或者事务的参与服务异常！");
+        }
     }
 }

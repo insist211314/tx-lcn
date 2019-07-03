@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.tc.config;
 
+import com.codingapi.txlcn.common.util.ApplicationInformation;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -30,14 +31,14 @@ import java.util.List;
  * @author lorne
  */
 @Data
-//@ConfigurationProperties(prefix = "tx-lcn.client")
-//@Component
+@ConfigurationProperties(prefix = "tx-lcn.client")
+@Component
 public class TxClientConfig {
 
     public TxClientConfig() {
         this.dtxAspectOrder = 0;
         this.dtxTime = 30 * 1000;
-//        this.managerAddress = Collections.singletonList("127.0.0.1:8070");
+        this.managerAddress = Collections.singletonList(ApplicationInformation.getIpAddress()+":8070");
     }
 
     /**

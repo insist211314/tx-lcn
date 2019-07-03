@@ -96,12 +96,14 @@ public class DTXServiceExecutor {
             return result;
         } catch (TransactionException e) {
             txLogger.error(info.getGroupId(), info.getUnitId(), "before business code error");
+            DTXLocalContext.setBusinessThrowable(e);
             throw e;
         } catch (Throwable e) {
             // 4.5 业务执行失败
             txLogger.error(info.getGroupId(), info.getUnitId(), Transactions.TAG_TRANSACTION,
                     "business code error");
             dtxLocalControl.onBusinessCodeError(info, e);
+            DTXLocalContext.setBusinessThrowable(e);
             throw e;
         } finally {
             // 4.6 业务执行完毕

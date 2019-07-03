@@ -39,14 +39,13 @@ import java.sql.SQLException;
  * @author codingapi
  */
 @Slf4j
-@Component
 public class H2DbHelper implements DisposableBean {
 
 //    private final HikariDataSource hikariDataSource;
 
     private final QueryRunner queryRunner;
 
-    @Autowired
+
     public H2DbHelper(DataSource loggerSource) {
 //        HikariConfig hikariConfig = new HikariConfig();
 //        hikariConfig.setDriverClassName(org.h2.Driver.class.getName());
@@ -64,8 +63,6 @@ public class H2DbHelper implements DisposableBean {
         Connection conn = null;
         try {
             DTXLocalContext dtxLocalContext = DTXLocalContext.cur();
-            if(dtxLocalContext!=null)
-                dtxLocalContext.setSubTransaction(true);
             conn = queryRunner.getDataSource().getConnection();
             conn.setAutoCommit(false);
             int i = queryRunner.update(conn, sql, params);

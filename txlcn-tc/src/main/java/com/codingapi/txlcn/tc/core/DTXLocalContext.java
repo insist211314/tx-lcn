@@ -34,10 +34,8 @@ public class DTXLocalContext {
 
     private final static ThreadLocal<DTXLocalContext> currentLocal = new InheritableThreadLocal<>();
 
-    /**
-     * 是否存在子事务,默认不存在
-     */
-    private Boolean subTransaction = false;
+    private final static ThreadLocal<Throwable> businessThrowableLocal = new InheritableThreadLocal<>();
+
     /**
      * 事务类型
      */
@@ -186,17 +184,14 @@ public class DTXLocalContext {
         return userDtxState == 1 ? dtxLocalContext.sysTransactionState : userDtxState;
     }
 
-    public Boolean getSubTransaction() {
-        return subTransaction;
+    public static void setBusinessThrowable(Throwable t){
+        businessThrowableLocal.set(t);
     }
 
-    public Boolean getAndCleanSubTransaction() {
-        Boolean has = subTransaction;
-        subTransaction = false;
-        return has;
+    public static Boolean hasThrowable(){
+        if(businessThrowableLocal.get()==null)
+            return false;
+        return true;
     }
 
-    public void setSubTransaction(Boolean subTransaction) {
-        this.subTransaction = subTransaction;
-    }
 }

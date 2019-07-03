@@ -26,17 +26,17 @@ public class TxExceptionServiceTest {
     @Autowired
     private TxExceptionService txExceptionService;
 
-    @Test
-    public void writeTxException(){
-        WriteTxExceptionDTO w = new WriteTxExceptionDTO();
-        w.setRegistrar((short) 0);
-        w.setGroupId("14141414");
-        w.setModId("41414141");
-        w.setRemark("Test");
-        w.setTransactionState(1);
-        w.setUnitId("2019");
-        txExceptionService.writeTxException(w);
-    }
+//    @Test
+//    public void writeTxException(){
+//        WriteTxExceptionDTO w = new WriteTxExceptionDTO();
+//        w.setRegistrar((short) 0);
+//        w.setGroupId("14141414");
+//        w.setModId("41414141");
+//        w.setRemark("Test");
+//        w.setTransactionState(1);
+//        w.setUnitId("2019");
+//        txExceptionService.writeTxException(w);
+//    }
     
     @Test
     public void transactionState(){

@@ -111,6 +111,23 @@ public class LoopMessenger implements ReliableMessenger {
     }
 
     @Override
+    public int askTransactionStateOrRollback(String groupId, String unitId) throws RpcException {
+        MessageDto messageDto = request(MessageCreator.askTransactionStateOrRollback(groupId, unitId));
+        if (MessageUtils.statusOk(messageDto)) {
+            return messageDto.loadBean(Integer.class);
+        }
+        return -1;
+    }
+
+    @Override
+    public void transactionStateRollback(String groupId, String unitId) throws RpcException {
+        MessageDto messageDto = request(MessageCreator.transactionStateRollback(groupId, unitId));
+        if (!MessageUtils.statusOk(messageDto)) {
+            throw new RpcException(messageDto.loadBean(Throwable.class));
+        }
+    }
+
+    @Override
     public void reportInvalidTM(HashSet<String> invalidTMSet) throws RpcException {
         MessageDto messageDto = new MessageDto();
         messageDto.setAction(MessageConstants.ACTION_CLEAN_INVALID_TM);

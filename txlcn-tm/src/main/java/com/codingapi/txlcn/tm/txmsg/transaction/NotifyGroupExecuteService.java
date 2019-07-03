@@ -21,13 +21,18 @@ import com.codingapi.txlcn.logger.TxLogger;
 import com.codingapi.txlcn.tm.core.DTXContext;
 import com.codingapi.txlcn.tm.core.DTXContextRegistry;
 import com.codingapi.txlcn.tm.core.TransactionManager;
+import com.codingapi.txlcn.tm.core.storage.TransactionUnit;
 import com.codingapi.txlcn.tm.txmsg.RpcExecuteService;
 import com.codingapi.txlcn.tm.txmsg.TransactionCmd;
+import com.codingapi.txlcn.txmsg.netty.bean.SocketManager;
 import com.codingapi.txlcn.txmsg.params.NotifyGroupParams;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Description:
@@ -35,6 +40,7 @@ import java.io.Serializable;
  *
  * @author ujued
  */
+@Slf4j
 @Service("rpc_notify-group")
 public class NotifyGroupExecuteService implements RpcExecuteService {
 
@@ -61,6 +67,7 @@ public class NotifyGroupExecuteService implements RpcExecuteService {
             int transactionState = transactionManager.transactionStateFromFastStorage(transactionCmd.getGroupId());
             if (transactionState == 0) {
                 commitState = 0;
+                log.warn("执行时间过长,超时！ groupId=" + transactionCmd.getGroupId());
             }
 
             // 系统日志
@@ -68,7 +75,15 @@ public class NotifyGroupExecuteService implements RpcExecuteService {
                     transactionCmd.getGroupId(), "", "notify group state: {}", notifyGroupParams.getState());
 
             if (commitState == 1) {
-                transactionManager.commit(dtxContext);
+                List<TransactionUnit> transactionUnits = dtxContext.transactionUnits();
+                List<String> remoteKeys = SocketManager.getInstance().getChannels().stream().map(c -> c.remoteAddress().toString()).collect(Collectors.toList());
+                if(transactionUnits.stream().allMatch(t -> remoteKeys.contains(t.getRemoteKey()))){
+                    transactionManager.commit(dtxContext);
+                }else{
+                    transactionManager.rollback(dtxContext);
+                    commitState = 0;
+                    log.warn("部分参与者服务异常！ groupId=" + transactionCmd.getGroupId());
+                }
             } else if (commitState == 0) {
                 transactionManager.rollback(dtxContext);
             }

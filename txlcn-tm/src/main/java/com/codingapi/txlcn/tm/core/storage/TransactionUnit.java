@@ -44,6 +44,11 @@ public class TransactionUnit implements Serializable {
      */
     private String unitId;
 
+    /**
+     * 远程连接地址
+     */
+    private String remoteKey;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -116,7 +116,8 @@ public class RedisStorage implements FastStorage {
         if (Objects.isNull(state)) {
             return -1;
         }
-
+        //有人访问,则重置事务状态的有效时间
+        redisTemplate.expire(REDIS_GROUP_STATE + groupId, managerConfig.getDtxTime() + 10000, TimeUnit.MILLISECONDS);
         try {
             return Integer.valueOf(state.toString());
         } catch (Exception e) {

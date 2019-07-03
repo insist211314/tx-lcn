@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.logger;
 
+import com.alibaba.fastjson.JSONObject;
 import com.codingapi.txlcn.common.util.SpringUtils;
 import com.codingapi.txlcn.logger.db.TxLog;
 import com.codingapi.txlcn.logger.helper.TxLcnLogDbHelper;
@@ -55,5 +56,6 @@ public class DefaultTxLogger extends AbstractTxLogger {
             return;
         }
         log.warn("tx-logger db configure fail.");
+        log.debug("DefaultTxLogger.saveLog! txLog=" + JSONObject.toJSONString(txLog));
     }
 }

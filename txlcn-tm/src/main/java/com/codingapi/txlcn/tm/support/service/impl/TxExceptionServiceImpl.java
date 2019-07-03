@@ -89,11 +89,16 @@ public class TxExceptionServiceImpl implements TxExceptionService {
     @Override
     public int transactionState(String groupId) {
         log.debug("transactionState > groupId: {}", groupId);
-        List<Byte> lists = txExceptionRepository.getTransactionStateByGroupId(groupId,PageRequest.of(0, 1));
+        List<Object> lists = txExceptionRepository.getTransactionStateByGroupId(groupId,PageRequest.of(0, 1));
         if (lists.size()<=0) {
             return -1;
         }
-        return lists.get(0).intValue();
+        if(lists.get(0) instanceof Integer){
+            return (Integer)lists.get(0);
+        }else if(lists.get(0) instanceof Byte){
+            ((Byte)lists.get(0)).intValue();
+        }
+        return (Integer)lists.get(0);
     }
     
     @Override

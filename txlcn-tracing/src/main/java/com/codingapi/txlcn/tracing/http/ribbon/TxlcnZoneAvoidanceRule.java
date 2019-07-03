@@ -57,7 +57,7 @@ public class TxlcnZoneAvoidanceRule extends ZoneAvoidanceRule {
 
         // 1. 自己加入此事务组调用链
         assert Objects.nonNull(registration);
-        TracingContext.tracing().addApp(registration.getServiceId(), registration.getHost() + ":" + registration.getPort());
+        TracingContext.tracing().addApp(registration.getServiceId().toUpperCase(), registration.getHost() + ":" + registration.getPort());
 
         // 2. 获取所有要访问服务的实例
         List<Server> servers = getLoadBalancer().getAllServers();
@@ -67,7 +67,7 @@ public class TxlcnZoneAvoidanceRule extends ZoneAvoidanceRule {
         log.debug("load balanced rule servers: {}, txGroup[{}]'s server map:{}",
                 servers, TracingContext.tracing().groupId(), appMap);
         Server balanceServer = null;
-        String serviceId = servers.get(0).getMetaInfo().getAppName();
+        String serviceId = servers.get(0).getMetaInfo().getAppName().toUpperCase();
         if (appMap.containsKey(serviceId)) {
             for (Server server : servers) {
                 if (server.getHostPort().equals(appMap.getString(serviceId))) {

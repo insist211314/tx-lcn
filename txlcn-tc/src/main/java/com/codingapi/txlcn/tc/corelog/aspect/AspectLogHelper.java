@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.tc.corelog.aspect;
 
+import com.alibaba.fastjson.JSONObject;
 import com.codingapi.txlcn.tc.corelog.H2DbHelper;
 import com.codingapi.txlcn.tc.corelog.LogHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -42,88 +43,138 @@ import java.util.UUID;
 @Component
 public class AspectLogHelper implements LogHelper {
 
-    private final H2DbHelper h2DbHelper;
+    @Autowired(required = false)
+    private H2DbHelper h2DbHelper;
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    @Autowired
-    public AspectLogHelper(H2DbHelper h2DbHelper) {
-        this.h2DbHelper = h2DbHelper;
+
+    public AspectLogHelper() {
     }
 
     @Override
     public void init() {
-        h2DbHelper.update("CREATE TABLE IF NOT EXISTS TXLCN_LOG " +
-                "(" +
-                "ID VARCHAR(32) NOT NULL, " +
-                "UNIT_ID VARCHAR(32) NOT NULL," +
-                "GROUP_ID VARCHAR(64) NOT NULL," +
-                "METHOD_STR VARCHAR(512) NOT NULL ," +
-                "BYTES BLOB NOT NULL," +
-                "GROUP_ID_HASH BIGINT NOT NULL," +
-                "UNIT_ID_HASH BIGINT NOT NULL," +
-                "TIME VARCHAR(32) NOT NULL, " +
-                "PRIMARY KEY(ID) )");
-        log.info("Aspect log table finished (H2 DATABASE)");
+        if(h2DbHelper!=null) {
+            h2DbHelper.update("CREATE TABLE IF NOT EXISTS TXLCN_LOG " +
+                    "(" +
+                    "ID VARCHAR(32) NOT NULL, " +
+                    "UNIT_ID VARCHAR(32) NOT NULL," +
+                    "GROUP_ID VARCHAR(64) NOT NULL," +
+                    "METHOD_STR VARCHAR(512) NOT NULL ," +
+                    "BYTES BLOB NOT NULL," +
+                    "GROUP_ID_HASH BIGINT NOT NULL," +
+                    "UNIT_ID_HASH BIGINT NOT NULL," +
+                    "TIME VARCHAR(32) NOT NULL, " +
+                    "PRIMARY KEY(ID) )");
+        }
+        log.info("AspectLogHelper.init 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
     }
 
 
     public boolean save(AspectLog txLog) {
-        String insertSql = "INSERT INTO TXLCN_LOG(ID,UNIT_ID,GROUP_ID,BYTES,METHOD_STR,GROUP_ID_HASH,UNIT_ID_HASH,TIME) VALUES(?,?,?,?,?,?,?,?)";
-        return h2DbHelper.update(insertSql, UUID.randomUUID().toString().replace("-", ""), txLog.getUnitId(), txLog.getGroupId(), txLog.getBytes(), txLog.getMethodStr(), txLog.getGroupId().hashCode(), txLog.getUnitId().hashCode(), format.format(new Date(txLog.getTime()))) > 0;
+        boolean result = true;
+        if(h2DbHelper!=null) {
+            String insertSql = "INSERT INTO TXLCN_LOG(ID,UNIT_ID,GROUP_ID,BYTES,METHOD_STR,GROUP_ID_HASH,UNIT_ID_HASH,TIME) VALUES(?,?,?,?,?,?,?,?)";
+            result = h2DbHelper.update(insertSql, UUID.randomUUID().toString().replace("-", ""), txLog.getUnitId(), txLog.getGroupId(), txLog.getBytes(), txLog.getMethodStr(), txLog.getGroupId().hashCode(), txLog.getUnitId().hashCode(), format.format(new Date(txLog.getTime()))) > 0;
+        }
+        log.info("AspectLogHelper.save 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"" + "  AspectLog=" + JSONObject.toJSONString(txLog));
+        return result;
     }
 
     public boolean deleteAll() {
-        String sql = "DELETE FROM TXLCN_LOG";
-        return h2DbHelper.update(sql) > 0;
+        boolean result = true;
+        if(h2DbHelper!=null) {
+            String sql = "DELETE FROM TXLCN_LOG";
+            result = h2DbHelper.update(sql) > 0;
+        }
+        log.info("AspectLogHelper.deleteAll 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+        return result;
     }
 
     public void trancute() {
-        String sql = "TRUNCATE TABLE TXLCN_LOG";
-        h2DbHelper.update(sql);
+        if(h2DbHelper!=null) {
+            String sql = "TRUNCATE TABLE TXLCN_LOG";
+            h2DbHelper.update(sql);
+        }
+        log.info("AspectLogHelper.trancute 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
     }
 
     public boolean delete(long id) {
-        String sql = "DELETE FROM TXLCN_LOG WHERE ID = ?";
-        return h2DbHelper.update(sql, id) > 0;
+        boolean result = true;
+        if(h2DbHelper!=null) {
+            String sql = "DELETE FROM TXLCN_LOG WHERE ID = ?";
+            result = h2DbHelper.update(sql, id) > 0;
+        }
+        log.info("AspectLogHelper.delete 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+        return result;
     }
 
     public boolean delete(long groupIdHash, long unitIdHash) {
         return true;
-//        String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID_HASH = ? and UNIT_ID_HASH = ?";
-//        return h2DbHelper.update(sql, groupIdHash, unitIdHash) > 0;
+//        boolean result = true;
+//        if(h2DbHelper!=null) {
+//            String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID_HASH = ? and UNIT_ID_HASH = ?";
+//            result = h2DbHelper.update(sql, groupIdHash, unitIdHash) > 0;
+//        }
+//        log.info("AspectLogHelper.delete 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+//        return result;
     }
 
     public boolean delete(String groupId) {
         return true;
-//        String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID = ?";
-//        return h2DbHelper.update(sql, groupId) > 0;
+//        boolean result = true;
+//        if(h2DbHelper!=null) {
+//            String sql = "DELETE FROM TXLCN_LOG WHERE GROUP_ID = ?";
+//            result = h2DbHelper.update(sql, groupId) > 0;
+//        }
+//        log.info("AspectLogHelper.delete 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+//        return result;
     }
 
     public List<AspectLog> findAll() {
-        String sql = "SELECT * FROM TXLCN_LOG";
-        return h2DbHelper.query(sql, resultSet -> {
-            List<AspectLog> list = new ArrayList<>();
-            while (resultSet.next()) {
-                list.add(fill(resultSet));
-            }
-            return list;
-        });
+        List<AspectLog> result = null;
+        if(h2DbHelper!=null) {
+            String sql = "SELECT * FROM TXLCN_LOG";
+            result = h2DbHelper.query(sql, resultSet -> {
+                List<AspectLog> list = new ArrayList<>();
+                while (resultSet.next()) {
+                    list.add(fill(resultSet));
+                }
+                return list;
+            });
+        }
+        log.info("AspectLogHelper.findAll 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+        return result;
     }
 
     public long count() {
-        String sql = "SELECT count(*) FROM TXLCN_LOG";
-        return h2DbHelper.query(sql, new ScalarHandler<Long>());
+        long result = 0;
+        if(h2DbHelper!=null) {
+            String sql = "SELECT count(*) FROM TXLCN_LOG";
+            return h2DbHelper.query(sql, new ScalarHandler<Long>());
+        }
+        log.info("AspectLogHelper.count 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+        return result;
     }
 
     public AspectLog getTxLog(String groupId, String unitId) {
-        String sql = "SELECT * FROM TXLCN_LOG WHERE GROUP_ID = ? and UNIT_ID = ?";
-        return h2DbHelper.query(sql, resultSetHandler, groupId, unitId);
+        AspectLog result = null;
+        if(h2DbHelper!=null) {
+            String sql = "SELECT * FROM TXLCN_LOG WHERE GROUP_ID = ? and UNIT_ID = ?";
+            result = h2DbHelper.query(sql, resultSetHandler, groupId, unitId);
+        }
+        log.info("AspectLogHelper.getTxLog 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+        return result;
     }
 
     public AspectLog getTxLog(long id) {
-        String sql = "SELECT * FROM TXLCN_LOG WHERE ID = ?";
-        return h2DbHelper.query(sql, resultSetHandler, id);
+        AspectLog result = null;
+        if(h2DbHelper!=null) {
+            String sql = "SELECT * FROM TXLCN_LOG WHERE ID = ?";
+            result = h2DbHelper.query(sql, resultSetHandler, id);
+        }
+        log.info("AspectLogHelper.getTxLog 执行完毕! " + h2DbHelper==null?" h2DbHelper is null!":"");
+        return result;
     }
 
     private final ResultSetHandler<AspectLog> resultSetHandler = resultSet -> {

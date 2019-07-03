@@ -150,6 +150,36 @@ public class MessageCreator {
     }
 
     /**
+     * 询问事务状态指令
+     *
+     * @param groupId groupId
+     * @param unitId  unitId
+     * @return MessageDto
+     */
+    public static MessageDto askTransactionStateOrRollback(String groupId, String unitId) {
+        MessageDto messageDto = new MessageDto();
+        messageDto.setGroupId(groupId);
+        messageDto.setAction(MessageConstants.ACTION_ASK_TRANSACTION_STATE_OR_ROLLBACK);
+        messageDto.setData(new AskTransactionStateParams(groupId, unitId));
+        return messageDto;
+    }
+
+    /**
+     * 询问事务状态指令
+     *
+     * @param groupId groupId
+     * @param unitId  unitId
+     * @return MessageDto
+     */
+    public static MessageDto transactionStateRollback(String groupId, String unitId) {
+        MessageDto messageDto = new MessageDto();
+        messageDto.setGroupId(groupId);
+        messageDto.setAction(MessageConstants.ACTION_TRANSACTION_STATE_ROLLBACK);
+        messageDto.setData(new AskTransactionStateParams(groupId, unitId));
+        return messageDto;
+    }
+
+    /**
      * 写异常信息指令
      *
      * @param txExceptionParams txExceptionParams

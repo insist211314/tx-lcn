@@ -67,6 +67,18 @@ public enum LCNCmdType {
     askTransactionState("ask-transaction-state", MessageConstants.ACTION_ASK_TRANSACTION_STATE),
 
     /**
+     * 响应事务状态,如果事务没提交,则直接设置为回滚
+     * 间写 ats
+     */
+    askTransactionStateOrRollback("ask-transaction-state-or-rollback", MessageConstants.ACTION_ASK_TRANSACTION_STATE_OR_ROLLBACK),
+
+    /**
+     * 设置事务状态为回滚
+     * 间写 ats
+     */
+    transactionStateRollback("transaction-state-rollback", MessageConstants.ACTION_TRANSACTION_STATE_ROLLBACK),
+
+    /**
      * 记录补偿
      * 简写 wc
      */
@@ -157,6 +169,10 @@ public enum LCNCmdType {
                 return queryTMCluster;
             case MessageConstants.ACTION_CLEAN_INVALID_TM:
                 return cleanInvalidTM;
+            case MessageConstants.ACTION_ASK_TRANSACTION_STATE_OR_ROLLBACK:
+                return askTransactionStateOrRollback;
+            case MessageConstants.ACTION_TRANSACTION_STATE_ROLLBACK:
+                return transactionStateRollback;
             default:
                 throw new IllegalStateException("unsupported cmd.");
         }

@@ -19,6 +19,8 @@ import com.codingapi.txlcn.common.exception.TransactionException;
 import com.codingapi.txlcn.tm.core.storage.FastStorage;
 import com.codingapi.txlcn.common.exception.FastStorageException;
 import com.codingapi.txlcn.tm.core.storage.GroupProps;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +32,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DefaultDTXContextRegistry implements DTXContextRegistry {
+
+    private static final Logger logger = LoggerFactory.getLogger(DefaultDTXContextRegistry.class);
 
     private final FastStorage fastStorage;
 
@@ -83,6 +87,14 @@ public class DefaultDTXContextRegistry implements DTXContextRegistry {
             return fastStorage.getTransactionState(groupId);
         } catch (FastStorageException e) {
             return -1;
+        }
+    }
+
+    public void saveTransactionState(String groupId, int state){
+        try {
+            fastStorage.saveTransactionState(groupId, state);
+        } catch (FastStorageException e) {
+
         }
     }
 }

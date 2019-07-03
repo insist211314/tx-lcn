@@ -92,7 +92,7 @@ public class SimpleDTXChecking implements DTXChecking, DisposableBean {
                         txContext.getLock().wait();
                     }
                 }
-                int state = reliableMessenger.askTransactionState(groupId, unitId);
+                int state = reliableMessenger.askTransactionStateOrRollback(groupId, unitId);
                 txLogger.taskTrace(groupId, unitId, "ask transaction state {}", state);
                 if (state == -1) {
                     txLogger.error(this.getClass().getSimpleName(), "delay clean transaction error.");

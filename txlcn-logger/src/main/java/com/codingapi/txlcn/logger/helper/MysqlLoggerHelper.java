@@ -23,6 +23,8 @@ import com.codingapi.txlcn.logger.db.TxLog;
 import com.codingapi.txlcn.logger.exception.NotEnableLogException;
 import com.codingapi.txlcn.logger.exception.TxLoggerException;
 import com.codingapi.txlcn.logger.model.*;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.GenerousBeanProcessor;
 import org.apache.commons.dbutils.RowProcessor;
@@ -42,6 +44,7 @@ import java.util.UUID;
  *
  * @author codingapi
  */
+@Slf4j
 public class MysqlLoggerHelper implements TxLcnLogDbHelper {
 
     /**
@@ -70,7 +73,7 @@ public class MysqlLoggerHelper implements TxLcnLogDbHelper {
                     ") ";
             dbHelper.update(sql);
         }
-
+        log.debug("MysqlLoggerHelper.init excute!");
     }
 
     @Override
@@ -84,6 +87,7 @@ public class MysqlLoggerHelper implements TxLcnLogDbHelper {
         } else {
             throw new NotEnableLogException("not enable logger");
         }
+
     }
 
     /**
@@ -158,7 +162,7 @@ public class MysqlLoggerHelper implements TxLcnLogDbHelper {
             page = 1;
         }
         sql.append(timeOrderSql(timeOrder)).append(" limit ").append((page - 1) * limit).append(", ").append(limit);
-        List<TxLog> txLogs = dbHelper.query(sql.toString(), new BeanListHandler<>(TxLog.class, processor), params);
+        List<TxLog> txLogs = dbHelper.query(sql.toString(), new BeanListHandler<>(TxLog.class, processor), null);
 
         LogList logList = new LogList();
         logList.setTotal(total);

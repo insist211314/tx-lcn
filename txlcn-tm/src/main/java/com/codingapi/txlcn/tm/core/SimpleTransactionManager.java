@@ -73,7 +73,7 @@ public class SimpleTransactionManager implements TransactionManager {
     }
 
     @Override
-    public void join(DTXContext dtxContext, String unitId, String unitType, String modId, int userState) throws TransactionException {
+    public void join(DTXContext dtxContext, String unitId, String unitType, String modId, String remoteKey, int userState) throws TransactionException {
         //手动回滚时设置状态为回滚状态 0
         if (userState == 0) {
             dtxContext.resetTransactionState(0);
@@ -82,6 +82,7 @@ public class SimpleTransactionManager implements TransactionManager {
         transactionUnit.setModId(modId);
         transactionUnit.setUnitId(unitId);
         transactionUnit.setUnitType(unitType);
+        transactionUnit.setRemoteKey(remoteKey);
         dtxContext.join(transactionUnit);
     }
 
@@ -111,6 +112,27 @@ public class SimpleTransactionManager implements TransactionManager {
     }
 
     @Override
+    public int transactionStateOrClean(String groupId) {
+        int state = exceptionService.transactionState(groupId);
+        //存在数据时返回数据状态
+        if (state != -1) {
+            return state;
+        }
+        state = dtxContextRegistry.transactionState(groupId);
+        if (state != -1) {
+            return state;
+        }
+        dtxContextRegistry.saveTransactionState(groupId, 0);
+        return 0;
+    }
+
+    @Override
+    public void saveTransactionState(String groupId, int state){
+        dtxContextRegistry.saveTransactionState(groupId, state);
+    }
+
+
+    @Override
     public int transactionStateFromFastStorage(String groupId) {
         return dtxContextRegistry.transactionState(groupId);
     }
@@ -132,8 +154,8 @@ public class SimpleTransactionManager implements TransactionManager {
                     // record exception
                     throw new RpcException("offline mod.");
                 }
-                MessageDto respMsg =
-                        rpcClient.request(modChannelKeys.get(0), MessageCreator.notifyUnit(notifyUnitParams));
+                String modChannelKey = modChannelKeys.stream().filter(key -> key.equals(transUnit.getRemoteKey())).findAny().get();
+                MessageDto respMsg = rpcClient.request(modChannelKey, MessageCreator.notifyUnit(notifyUnitParams));
                 if (!MessageUtils.statusOk(respMsg)) {
                     // 提交/回滚失败的消息处理
                     List<Object> params = Arrays.asList(notifyUnitParams, transUnit.getModId());

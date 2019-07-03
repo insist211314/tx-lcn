@@ -72,7 +72,7 @@ public class TxManagerConfig {
     /**
      * 分布式事务超时时间(ms)
      */
-    private long dtxTime = 8 * 1000;
+    private long dtxTime = 30 * 1000;
 
     /**
      * 后台密码

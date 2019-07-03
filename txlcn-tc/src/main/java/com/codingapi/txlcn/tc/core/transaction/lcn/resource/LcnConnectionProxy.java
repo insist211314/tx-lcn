@@ -44,17 +44,17 @@ public class LcnConnectionProxy implements Connection {
     public RpcResponseState notify(int state) {
         try {
             if (state == 1) {
-                log.debug("commit transaction type[lcn] proxy connection:{}.", this);
+                log.warn("commit transaction type[lcn] proxy connection:{}.", this);
                 connection.commit();
             } else {
-                log.debug("rollback transaction type[lcn] proxy connection:{}.", this);
+                log.warn("rollback transaction type[lcn] proxy connection:{}.", this);
                 connection.rollback();
             }
             if(connection.isClosed()) {
                 return RpcResponseState.success;
             }
             connection.close();
-            log.debug("transaction type[lcn] proxy connection:{} closed.", this);
+            log.warn("transaction type[lcn] proxy connection:{} closed.", this);
             return RpcResponseState.success;
         } catch (Exception e) {
             log.error(e.getLocalizedMessage(), e);

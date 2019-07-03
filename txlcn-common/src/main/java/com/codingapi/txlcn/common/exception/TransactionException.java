@@ -21,7 +21,7 @@ package com.codingapi.txlcn.common.exception;
  *
  * @author ujued
  */
-public class TransactionException extends Exception {
+public class TransactionException extends RuntimeException {
     public TransactionException() {
     }
 
