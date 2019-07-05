@@ -39,7 +39,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.netflix.feign</groupId>
+            <groupId>io.github.openfeign</groupId>
             <artifactId>feign-core</artifactId>
             <scope>provided</scope>
         </dependency>

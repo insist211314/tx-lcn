@@ -16,5 +16,6 @@
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-common</artifactId>
         </dependency>
+
     </dependencies>
 </project>
