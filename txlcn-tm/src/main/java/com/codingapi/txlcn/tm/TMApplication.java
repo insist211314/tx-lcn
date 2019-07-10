@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.tm;
 
+import com.codingapi.txlcn.tm.config.EnableTransactionManagerServer;
 import com.codingapi.txlcn.tm.support.TxLcnManagerBanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +28,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author lorne
  */
 @SpringBootApplication
+@EnableTransactionManagerServer
 public class TMApplication {
 
     public static void main(String[] args) {

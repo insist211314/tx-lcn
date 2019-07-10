@@ -6,11 +6,10 @@
     <parent>
         <groupId>com.codingapi.txlcn</groupId>
         <artifactId>tx-lcn</artifactId>
-        <version>5.0.2.RELEASE</version>
+        <version>6.0.1.RELEASE</version>
     </parent>
 
     <artifactId>txlcn-tm</artifactId>
-    <version>5.0.2.RELEASE</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -76,73 +75,101 @@
     </dependencies>
 
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>dev</env>
+                <log.home>/data/app/logs</log.home>
+                <spring.datasource.driver-class-name>com.mysql.jdbc.Driver</spring.datasource.driver-class-name>
+                <spring.datasource.url>jdbc:mysql://192.168.34.206:3306/tx_manager?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</spring.datasource.url>
+                <spring.datasource.username>dev_user</spring.datasource.username>
+                <spring.datasource.password>Dev_user@2019</spring.datasource.password>
+                <tx-lcn.logger.driver-class-name>com.mysql.jdbc.Driver</tx-lcn.logger.driver-class-name>
+                <tx-lcn.logger.jdbc-url>jdbc:mysql://192.168.34.206:3306/tx_logger?characterEncoding=UTF-8&amp;serverTimezone=UTC</tx-lcn.logger.jdbc-url>
+                <tx-lcn.logger.username>dev_user</tx-lcn.logger.username>
+                <tx-lcn.logger.password>Dev_user@2019</tx-lcn.logger.password>
+                <spring.redis.database>8</spring.redis.database>
+                <spring.redis.host>120.79.184.156</spring.redis.host>
+                <spring.redis.port>6379</spring.redis.port>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+                <log.home>/data/app/logs</log.home>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+                <log.home>/data/app/logs</log.home>
+            </properties>
+        </profile>
+    </profiles>
+
     <!-- deploy 注释掉下 -->
     <build>
+
+        <finalName>txlcn-tm</finalName>
+        <resources>
+            <resource>
+                <directory>env/</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<version>2.6</version>-->
-                <!--<configuration>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<mainClass>com.codingapi.txlcn.tm.TMApplication</mainClass>-->
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--<classpathPrefix>lib/</classpathPrefix>-->
-                        <!--</manifest>-->
-                        <!--<manifestEntries>-->
-                            <!--<Class-Path>./</Class-Path>-->
-                        <!--</manifestEntries>-->
-                    <!--</archive>-->
-                    <!--<excludes>-->
-                        <!--<exclude>config/**</exclude>-->
-                    <!--</excludes>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-
-            <!--<plugin>-->
-                <!--<artifactId>maven-assembly-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<appendAssemblyId>false</appendAssemblyId>-->
-                    <!--<descriptors>-->
-                        <!--<descriptor>src/main/build/package.xml</descriptor>-->
-                    <!--</descriptors>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>make-assembly</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>single</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-
-            <!--docker 构建-->
+            <!-- 打包配置 -->
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <imageName>codingapi/txlcn-tm</imageName>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <imageTags>
-                        <imageTag>5.0.2</imageTag>
-                    </imageTags>
-
-                    <serverId>docker-hub</serverId>
-                    <registryUrl>https://index.docker.io/v1/</registryUrl>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly-test</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                    <delimiters>
+                        <delimiter>$[*]</delimiter>
+                    </delimiters>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

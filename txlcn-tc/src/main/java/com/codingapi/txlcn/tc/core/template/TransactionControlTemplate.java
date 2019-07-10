@@ -162,7 +162,7 @@ public class TransactionControlTemplate {
         txLogger.txTrace(groupId, unitId, "notify group exception state {}.", exState);
 
         if(state==1 && exState==0 && !DTXLocalContext.hasThrowable()){
-            throw new TransactionException("事务回滚,可能执行时间过长超时或者事务的参与服务异常！");
+            throw new TransactionException("事务回滚,可能执行时间过长超时或者事务的参与服务异常,或者其他参与者已经回滚！");
         }
     }
 }

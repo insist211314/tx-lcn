@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="APP_NAME" value="txlcn-tm"/>
+    <property name="LOG_HOME" value="$[log.home]"/>
+    <property name="LOG_MAX_SIZE" value="50MB" />
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level %t %logger - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${APP_NAME}/${APP_NAME}.out</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/${APP_NAME}/${APP_NAME}.out.%d{yyyy-MM-dd}.%i.log.zip</FileNamePattern>
+            <!-- 文件输出日志 (文件大小策略进行文件输出，超过指定大小对文件备份) -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_MAX_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level %t %logger - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <Logger name="RocketmqClient" level="ERROR"/>
+    <logger name="com.alibaba" level="DEBUG"/>
+    <logger name="org.mybatis" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+    <logger name="com.ctrip" level="WARN"/>
+    <logger name="org.springframework" level="WARN"></logger>
+    <logger name="org.springframework.data.redis" level="WARN"></logger>
+    <logger name="druid.sql.Statement" level="DEBUG"/>
+    <logger name="com.codingapi" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

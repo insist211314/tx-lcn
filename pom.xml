@@ -6,7 +6,7 @@
 
     <groupId>com.codingapi.txlcn</groupId>
     <artifactId>tx-lcn</artifactId>
-    <version>5.0.2.RELEASE</version>
+    <version>6.0.1.RELEASE</version>
     <packaging>pom</packaging>
 
 
@@ -178,79 +178,18 @@
     </dependencyManagement>
 
 
-    <licenses>
-        <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>wangliang</name>
-            <email>wangliang@codingapi.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-
-        <developer>
-            <name>jingyakun</name>
-            <email>jingyakun@codingapi.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-
-        <developer>
-            <name>houcunlu</name>
-            <email>houcunlu@codingapi.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-
-        <developer>
-            <name>yinxue</name>
-            <email>yinxue@codingapi.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-
-        <developer>
-            <name>zhuyu</name>
-            <email>zhuyu@codingapi.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-
-
-    </developers>
-
-    <scm>
-        <connection>scm:git:https://github.com/codingapi/tx-lcn.git</connection>
-        <developerConnection>scm:git:https://github.com/codingapi/tx-lcn.git</developerConnection>
-        <url>https://github.com/codingapi/tx-lcn</url>
-        <tag>v${project.version}</tag>
-    </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <name>Maven Central Staging Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>hosted-release</id>
+            <name>hosted-release</name>
+            <url>http://192.168.34.187:18081/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>hosted-snapshot</id>
+            <name>hosted-snapshot</name>
+            <url>http://192.168.34.187:18081/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <build>
@@ -279,50 +218,6 @@
                 </executions>
             </plugin>
 
-
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>${nexus.staging.maven.plugin}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-
-            <!-- 手动打包时，将下面的plugin注释掉 -->
-
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-javadoc-plugin</artifactId>-->
-                <!--<version>${maven.javadoc.plugin}</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>attach-javadocs</id>-->
-                        <!--<goals>-->
-                            <!--<goal>jar</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-
-
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-gpg-plugin</artifactId>-->
-                <!--<version>${maven.gpg.plugin}</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>sign-artifacts</id>-->
-                        <!--<phase>verify</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>sign</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
 
         </plugins>
     </build>

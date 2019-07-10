@@ -77,7 +77,7 @@ public class TxManagerConfig {
     /**
      * 后台密码
      */
-    private String adminKey = "codingapi";
+    private String adminKey = "admin";
 
     /**
      * 是否允许异常回调

@@ -1,0 +1,323 @@
+2019-07-08 19:31:16.898 INFO main com.codingapi.txlcn.tm.ApplicationTest - Starting ApplicationTest on 755d025986 with PID 15732 (started by MG01896 in D:\work\tx-lcn\txlcn-tm)
+2019-07-08 19:31:16.901 DEBUG main com.codingapi.txlcn.tm.ApplicationTest - Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-07-08 19:31:16.901 INFO main com.codingapi.txlcn.tm.ApplicationTest - The following profiles are active: dev
+2019-07-08 19:31:21.636 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-07-08 19:31:21.809 INFO main org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-08 19:31:21.932 INFO main org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final}
+2019-07-08 19:31:21.935 INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-07-08 19:31:22.106 INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-08 19:31:22.274 INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-07-08 19:31:24.368 INFO main com.codingapi.txlcn.logger.db.LogDbHelper - log-db prepared.
+2019-07-08 19:31:24.787 WARN main org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-08 19:31:25.297 INFO main com.codingapi.txlcn.tm.ApplicationTest - Started ApplicationTest in 8.897 seconds (JVM running for 10.25)
+2019-07-08 19:31:25.426 INFO main com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - Socket started on 10.0.22.115:22010 
+2019-07-08 19:31:25.440 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x6dfa008e] REGISTERED
+2019-07-08 19:31:25.444 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x6dfa008e] BIND: /10.0.22.115:22010
+2019-07-08 19:31:25.445 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x6dfa008e, L:/10.0.22.115:22010] ACTIVE
+2019-07-08 19:31:25.534 INFO main io.lettuce.core.EpollProvider - Starting without optional epoll library
+2019-07-08 19:31:25.537 INFO main io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2019-07-08 19:31:25.656 INFO main com.codingapi.txlcn.tm.support.service.impl.ManagerServiceImpl - Acquired machine id 558, max machine id is: 2251799813685246
+2019-07-08 19:31:25.726 DEBUG main com.codingapi.txlcn.logger.helper.MysqlLoggerHelper - MysqlLoggerHelper.init excute!
+2019-07-08 19:31:26.919 INFO main com.codingapi.txlcn.tm.cluster.TMAutoCluster - manager auto refresh res-><200,true,[Content-Type:"application/json;charset=UTF-8", Transfer-Encoding:"chunked", Date:"Mon, 08 Jul 2019 11:31:26 GMT"]>
+2019-07-08 19:31:32.635 DEBUG Thread-3 com.codingapi.txlcn.tm.core.storage.redis.RedisStorage - removed TM 10.0.22.115:22010
+2019-07-08 19:31:32.639 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x6dfa008e, L:/10.0.22.115:22010] UNREGISTERED
+2019-07-08 19:31:32.640 INFO Thread-3 com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - server was down.
+2019-07-08 19:31:33.764 INFO Thread-3 com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2019-07-08 19:31:33.772 INFO Thread-3 com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2019-07-08 19:33:04.567 INFO main com.codingapi.txlcn.tm.ApplicationTest - Starting ApplicationTest on 755d025986 with PID 15568 (started by MG01896 in D:\work\tx-lcn\txlcn-tm)
+2019-07-08 19:33:04.569 DEBUG main com.codingapi.txlcn.tm.ApplicationTest - Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-07-08 19:33:04.569 INFO main com.codingapi.txlcn.tm.ApplicationTest - The following profiles are active: dev
+2019-07-08 19:33:07.385 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-07-08 19:33:07.600 INFO main org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-08 19:33:07.696 INFO main org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final}
+2019-07-08 19:33:07.697 INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-07-08 19:33:07.882 INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-08 19:33:08.048 INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-07-08 19:33:10.013 INFO main com.codingapi.txlcn.logger.db.LogDbHelper - log-db prepared.
+2019-07-08 19:33:10.441 WARN main org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-08 19:33:10.934 INFO main com.codingapi.txlcn.tm.ApplicationTest - Started ApplicationTest in 7.147 seconds (JVM running for 8.199)
+2019-07-08 19:33:11.074 INFO main com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - Socket started on 10.0.22.115:21915 
+2019-07-08 19:33:11.084 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x83ef07f5] REGISTERED
+2019-07-08 19:33:11.085 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x83ef07f5] BIND: /10.0.22.115:21915
+2019-07-08 19:33:11.087 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x83ef07f5, L:/10.0.22.115:21915] ACTIVE
+2019-07-08 19:33:11.242 INFO main io.lettuce.core.EpollProvider - Starting without optional epoll library
+2019-07-08 19:33:11.245 INFO main io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2019-07-08 19:33:11.343 INFO main com.codingapi.txlcn.tm.support.service.impl.ManagerServiceImpl - Acquired machine id 559, max machine id is: 2251799813685246
+2019-07-08 19:33:11.363 DEBUG main com.codingapi.txlcn.logger.helper.MysqlLoggerHelper - MysqlLoggerHelper.init excute!
+2019-07-08 19:33:11.485 INFO main com.codingapi.txlcn.tm.cluster.TMAutoCluster - manager auto refresh res-><200,true,[Content-Type:"application/json;charset=UTF-8", Transfer-Encoding:"chunked", Date:"Mon, 08 Jul 2019 11:33:11 GMT"]>
+2019-07-08 19:34:15.421 WARN http-nio-21910-exec-2 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/
+2019-07-08 19:34:20.221 WARN http-nio-21910-exec-4 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/index.html
+2019-07-08 19:36:06.464 DEBUG Thread-3 com.codingapi.txlcn.tm.core.storage.redis.RedisStorage - removed TM 10.0.22.115:21915
+2019-07-08 19:36:06.468 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x83ef07f5, L:/10.0.22.115:21915] UNREGISTERED
+2019-07-08 19:36:06.468 INFO Thread-3 com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - server was down.
+2019-07-08 19:36:07.584 INFO Thread-3 com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2019-07-08 19:36:07.588 INFO Thread-3 com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2019-07-08 19:36:12.504 INFO main com.codingapi.txlcn.tm.ApplicationTest - Starting ApplicationTest on 755d025986 with PID 6368 (started by MG01896 in D:\work\tx-lcn\txlcn-tm)
+2019-07-08 19:36:12.506 DEBUG main com.codingapi.txlcn.tm.ApplicationTest - Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-07-08 19:36:12.506 INFO main com.codingapi.txlcn.tm.ApplicationTest - The following profiles are active: dev
+2019-07-08 19:36:15.218 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-07-08 19:36:15.395 INFO main org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-08 19:36:15.540 INFO main org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final}
+2019-07-08 19:36:15.551 INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-07-08 19:36:15.803 INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-08 19:36:16.007 INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-07-08 19:36:17.881 INFO main com.codingapi.txlcn.logger.db.LogDbHelper - log-db prepared.
+2019-07-08 19:36:18.313 WARN main org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-08 19:36:18.803 INFO main com.codingapi.txlcn.tm.ApplicationTest - Started ApplicationTest in 7.046 seconds (JVM running for 8.046)
+2019-07-08 19:36:18.936 INFO main com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - Socket started on 10.0.22.115:21915 
+2019-07-08 19:36:18.945 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xdc09f139] REGISTERED
+2019-07-08 19:36:18.947 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xdc09f139] BIND: /10.0.22.115:21915
+2019-07-08 19:36:18.948 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xdc09f139, L:/10.0.22.115:21915] ACTIVE
+2019-07-08 19:36:19.058 INFO main io.lettuce.core.EpollProvider - Starting without optional epoll library
+2019-07-08 19:36:19.060 INFO main io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2019-07-08 19:36:19.212 INFO main com.codingapi.txlcn.tm.support.service.impl.ManagerServiceImpl - Acquired machine id 560, max machine id is: 2251799813685246
+2019-07-08 19:36:19.230 DEBUG main com.codingapi.txlcn.logger.helper.MysqlLoggerHelper - MysqlLoggerHelper.init excute!
+2019-07-08 19:36:27.835 WARN http-nio-21910-exec-1 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/index.html
+2019-07-08 19:37:50.994 WARN http-nio-21910-exec-8 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/login
+2019-07-08 19:37:59.996 WARN http-nio-21910-exec-6 org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-07-08 19:38:00.027 WARN http-nio-21910-exec-6 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/error
+2019-07-08 19:38:10.022 WARN http-nio-21910-exec-3 org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-07-08 19:38:10.023 WARN http-nio-21910-exec-3 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/error
+2019-07-08 19:38:27.886 WARN http-nio-21910-exec-7 org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-07-08 19:38:35.936 WARN http-nio-21910-exec-7 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/error
+2019-07-08 19:39:16.447 WARN http-nio-21910-exec-1 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/
+2019-07-08 19:40:43.780 WARN http-nio-21910-exec-2 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Unauthorized, token is null. URL: /txlcn-tm/
+2019-07-08 19:41:36.926 DEBUG Thread-3 com.codingapi.txlcn.tm.core.storage.redis.RedisStorage - removed TM 10.0.22.115:21915
+2019-07-08 19:41:36.929 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xdc09f139, L:/10.0.22.115:21915] UNREGISTERED
+2019-07-08 19:41:36.929 INFO Thread-3 com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - server was down.
+2019-07-08 20:24:05.622 INFO main com.codingapi.txlcn.tm.ApplicationTest - Starting ApplicationTest on 755d025986 with PID 15844 (started by MG01896 in D:\work\tx-lcn\txlcn-tm)
+2019-07-08 20:24:05.624 DEBUG main com.codingapi.txlcn.tm.ApplicationTest - Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-07-08 20:24:05.624 INFO main com.codingapi.txlcn.tm.ApplicationTest - No active profile set, falling back to default profiles: default
+2019-07-08 20:24:09.067 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-07-08 20:24:09.335 INFO main org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-08 20:24:09.423 INFO main org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final}
+2019-07-08 20:24:09.425 INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-07-08 20:24:09.671 INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-08 20:24:09.843 INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-07-08 20:24:11.699 INFO main com.codingapi.txlcn.logger.db.LogDbHelper - log-db prepared.
+2019-07-08 20:24:12.075 WARN main org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-08 20:24:12.604 ERROR main org.apache.catalina.util.LifecycleBase - Failed to start component [Connector[HTTP/1.1-7970]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:118)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68)
+	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47)
+	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
+	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:236)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:210)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1103)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1189)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 38 common frames omitted
+2019-07-08 20:24:12.617 ERROR main org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 7970 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 7970, or configure this application to listen on another port.
+
+2019-07-08 20:24:12.620 INFO main com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - server was down.
+2019-07-08 20:24:12.634 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2019-07-08 20:24:12.646 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2019-07-08 20:24:12.646 ERROR main org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@5e6ad84c] to prepare test instance [com.codingapi.txlcn.tm.ApplicationTest@4117e0c9]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:118)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68)
+	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47)
+	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242)
+	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70)
+Caused by: org.springframework.boot.web.embedded.tomcat.ConnectorStartFailedException: Connector configured to listen on port 7970 failed to start
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.checkConnectorHasStarted(TomcatWebServer.java:232)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.checkThatConnectorsHaveStarted(TomcatWebServer.java:224)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:202)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
+	... 24 common frames omitted
+2019-07-08 20:24:24.699 INFO main com.codingapi.txlcn.tm.ApplicationTest - Starting ApplicationTest on 755d025986 with PID 14268 (started by MG01896 in D:\work\tx-lcn\txlcn-tm)
+2019-07-08 20:24:24.700 DEBUG main com.codingapi.txlcn.tm.ApplicationTest - Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-07-08 20:24:24.701 INFO main com.codingapi.txlcn.tm.ApplicationTest - No active profile set, falling back to default profiles: default
+2019-07-08 20:24:27.757 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-07-08 20:24:27.911 INFO main org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-08 20:24:27.978 INFO main org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final}
+2019-07-08 20:24:27.979 INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-07-08 20:24:28.146 INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-08 20:24:28.308 INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-07-08 20:24:29.971 INFO main com.codingapi.txlcn.logger.db.LogDbHelper - log-db prepared.
+2019-07-08 20:24:30.330 WARN main org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-08 20:24:30.785 INFO main com.codingapi.txlcn.tm.ApplicationTest - Started ApplicationTest in 6.59 seconds (JVM running for 7.558)
+2019-07-08 20:24:30.959 INFO main com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - Socket started on 10.0.22.115:8070 
+2019-07-08 20:24:30.968 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xa5415694] REGISTERED
+2019-07-08 20:24:30.969 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xa5415694] BIND: /10.0.22.115:8070
+2019-07-08 20:24:30.971 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xa5415694, L:/10.0.22.115:8070] ACTIVE
+2019-07-08 20:24:31.072 INFO main io.lettuce.core.EpollProvider - Starting without optional epoll library
+2019-07-08 20:24:31.078 INFO main io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2019-07-08 20:24:31.179 INFO main com.codingapi.txlcn.tm.support.service.impl.ManagerServiceImpl - Acquired machine id 572, max machine id is: 2251799813685246
+2019-07-08 20:24:31.219 DEBUG main com.codingapi.txlcn.logger.helper.MysqlLoggerHelper - MysqlLoggerHelper.init excute!
+2019-07-08 20:24:36.545 INFO http-nio-7970-exec-3 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Token is: 423475f9e0df422b930bbfab4fbc194b
+2019-07-08 20:24:38.149 INFO http-nio-7970-exec-4 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Token is: 423475f9e0df422b930bbfab4fbc194b
+2019-07-08 20:24:38.611 INFO http-nio-7970-exec-5 com.codingapi.txlcn.tm.support.restapi.auth.sauth.token.TokenInterceptor - Token is: 423475f9e0df422b930bbfab4fbc194b
+2019-07-08 20:24:38.699 INFO http-nio-7970-exec-5 org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+2019-07-08 20:26:19.304 DEBUG Thread-3 com.codingapi.txlcn.tm.core.storage.redis.RedisStorage - removed TM 10.0.22.115:8070
+2019-07-08 20:26:19.307 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0xa5415694, L:/10.0.22.115:8070] UNREGISTERED
+2019-07-08 20:26:19.307 INFO Thread-3 com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - server was down.
+2019-07-08 20:26:20.431 INFO Thread-3 com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2019-07-08 20:26:20.436 INFO Thread-3 com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2019-07-08 20:26:25.583 INFO main com.codingapi.txlcn.tm.ApplicationTest - Starting ApplicationTest on 755d025986 with PID 7876 (started by MG01896 in D:\work\tx-lcn\txlcn-tm)
+2019-07-08 20:26:25.585 DEBUG main com.codingapi.txlcn.tm.ApplicationTest - Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-07-08 20:26:25.585 INFO main com.codingapi.txlcn.tm.ApplicationTest - No active profile set, falling back to default profiles: default
+2019-07-08 20:26:28.291 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-07-08 20:26:28.444 INFO main org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-08 20:26:28.520 INFO main org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final}
+2019-07-08 20:26:28.521 INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-07-08 20:26:28.731 INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-08 20:26:28.876 INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-07-08 20:26:30.452 INFO main com.codingapi.txlcn.logger.db.LogDbHelper - log-db prepared.
+2019-07-08 20:26:30.792 WARN main org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-08 20:26:31.221 INFO main com.codingapi.txlcn.tm.ApplicationTest - Started ApplicationTest in 5.996 seconds (JVM running for 6.949)
+2019-07-08 20:26:31.340 INFO main com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - Socket started on 10.0.22.115:8070 
+2019-07-08 20:26:31.349 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x8e9012bc] REGISTERED
+2019-07-08 20:26:31.350 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x8e9012bc] BIND: /10.0.22.115:8070
+2019-07-08 20:26:31.351 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x8e9012bc, L:/10.0.22.115:8070] ACTIVE
+2019-07-08 20:26:31.445 INFO main io.lettuce.core.EpollProvider - Starting without optional epoll library
+2019-07-08 20:26:31.447 INFO main io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2019-07-08 20:26:31.549 INFO main com.codingapi.txlcn.tm.support.service.impl.ManagerServiceImpl - Acquired machine id 573, max machine id is: 2251799813685246
+2019-07-08 20:26:31.567 DEBUG main com.codingapi.txlcn.logger.helper.MysqlLoggerHelper - MysqlLoggerHelper.init excute!
+2019-07-08 20:26:35.124 DEBUG Thread-3 com.codingapi.txlcn.tm.core.storage.redis.RedisStorage - removed TM 10.0.22.115:8070
+2019-07-08 20:26:35.131 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x8e9012bc, L:/10.0.22.115:8070] UNREGISTERED
+2019-07-08 20:26:35.133 INFO Thread-3 com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - server was down.
+2019-07-08 20:43:31.443 INFO main com.codingapi.txlcn.tm.ApplicationTest - Starting ApplicationTest on 755d025986 with PID 9548 (started by MG01896 in D:\work\tx-lcn\txlcn-tm)
+2019-07-08 20:43:31.445 DEBUG main com.codingapi.txlcn.tm.ApplicationTest - Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-07-08 20:43:31.445 INFO main com.codingapi.txlcn.tm.ApplicationTest - No active profile set, falling back to default profiles: default
+2019-07-08 20:43:34.034 INFO main com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-07-08 20:43:34.199 INFO main org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-08 20:43:34.276 INFO main org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final}
+2019-07-08 20:43:34.278 INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-07-08 20:43:34.438 INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-08 20:43:34.662 INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-07-08 20:43:36.378 INFO main com.codingapi.txlcn.logger.db.LogDbHelper - log-db prepared.
+2019-07-08 20:43:36.782 WARN main org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-08 20:43:37.041 DEBUG main org.springframework.data.redis.listener.RedisMessageListenerContainer - Postpone listening for Redis messages until actual listeners are added
+2019-07-08 20:43:37.041 DEBUG main org.springframework.data.redis.listener.RedisMessageListenerContainer - Started RedisMessageListenerContainer
+2019-07-08 20:43:37.237 INFO main com.codingapi.txlcn.tm.ApplicationTest - Started ApplicationTest in 6.415 seconds (JVM running for 7.443)
+2019-07-08 20:43:37.378 INFO main com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - Socket started on 10.0.22.115:21785 
+2019-07-08 20:43:37.384 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x62fd60d8] REGISTERED
+2019-07-08 20:43:37.386 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x62fd60d8] BIND: /10.0.22.115:21785
+2019-07-08 20:43:37.387 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x62fd60d8, L:/10.0.22.115:21785] ACTIVE
+2019-07-08 20:43:37.398 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.497 INFO main io.lettuce.core.EpollProvider - Starting without optional epoll library
+2019-07-08 20:43:37.501 INFO main io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2019-07-08 20:43:37.609 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.612 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.623 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.624 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.648 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.651 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.658 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.659 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.665 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.666 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.672 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.673 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.680 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.680 INFO main com.codingapi.txlcn.tm.support.service.impl.ManagerServiceImpl - Acquired machine id 1, max machine id is: 2251799813685246
+2019-07-08 20:43:37.701 DEBUG main com.codingapi.txlcn.logger.helper.MysqlLoggerHelper - MysqlLoggerHelper.init excute!
+2019-07-08 20:43:37.702 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.713 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:43:37.714 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:43:37.722 DEBUG main org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:52:51.035 DEBUG Thread-3 org.springframework.data.redis.listener.RedisMessageListenerContainer - Stopped RedisMessageListenerContainer
+2019-07-08 20:52:51.036 DEBUG Thread-3 org.springframework.data.redis.core.RedisConnectionUtils - Opening RedisConnection
+2019-07-08 20:52:51.043 DEBUG Thread-3 org.springframework.data.redis.core.RedisConnectionUtils - Closing Redis Connection
+2019-07-08 20:52:51.043 DEBUG Thread-3 com.codingapi.txlcn.tm.core.storage.redis.RedisStorage - removed TM 10.0.22.115:21785
+2019-07-08 20:52:51.048 INFO nioEventLoopGroup-4-1 io.netty.handler.logging.LoggingHandler - [id: 0x62fd60d8, L:/10.0.22.115:21785] UNREGISTERED
+2019-07-08 20:52:51.082 INFO Thread-3 com.codingapi.txlcn.txmsg.netty.impl.NettyRpcServerInitializer - server was down.

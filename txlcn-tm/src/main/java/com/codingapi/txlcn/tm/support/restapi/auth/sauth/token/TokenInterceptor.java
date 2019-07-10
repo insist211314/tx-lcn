@@ -56,10 +56,10 @@ public class TokenInterceptor implements HandlerInterceptor {
         // 提供认证逻辑忽略地址
         for (String url : sAuthLogic.ignoreUrls()) {
             int ind = url.indexOf("*");
-            if (ind != -1 && request.getRequestURI().startsWith(url.substring(0, ind))) {
+            if (ind != -1 && request.getRequestURI().startsWith(request.getContextPath() + url.substring(0, ind))) {
                 return true;
             }
-            if (request.getRequestURI().equalsIgnoreCase(url)) {
+            if (request.getRequestURI().equalsIgnoreCase(request.getContextPath() + url)) {
                 return true;
             }
         }
