@@ -151,10 +151,12 @@ public class TransactionControlTemplate {
         } catch (TransactionClearException e) {
             txLogger.trace(groupId, unitId, Transactions.TE, "clean transaction fail.");
         } catch (RpcException e) {
-            dtxExceptionHandler.handleNotifyGroupMessageException(Arrays.asList(groupId, 0, unitId, transactionType), e);
+            exState = 0;
+            dtxExceptionHandler.handleNotifyGroupMessageException(Arrays.asList(groupId, exState, unitId, transactionType), e);
         } catch (LcnBusinessException e) {
+            exState = 0;
             // 关闭事务组失败
-            dtxExceptionHandler.handleNotifyGroupBusinessException(Arrays.asList(groupId, 0, unitId, transactionType), e.getCause());
+            dtxExceptionHandler.handleNotifyGroupBusinessException(Arrays.asList(groupId, exState, unitId, transactionType), e.getCause());
             if("dtx timeout.".equals(e.getMessage())){
                 throw new TransactionException("事务回滚,执行时间过长！");
             }
