@@ -27,12 +27,14 @@ import com.codingapi.txlcn.txmsg.dto.MessageDto;
 import com.codingapi.txlcn.txmsg.exception.RpcException;
 import com.codingapi.txlcn.txmsg.params.NotifyUnitParams;
 import com.codingapi.txlcn.txmsg.util.MessageUtils;
+import jdk.nashorn.internal.runtime.options.Option;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Description: 默认事务管理器
@@ -154,8 +156,8 @@ public class SimpleTransactionManager implements TransactionManager {
                     // record exception
                     throw new RpcException("offline mod.");
                 }
-                String modChannelKey = modChannelKeys.stream().filter(key -> key.equals(transUnit.getRemoteKey())).findAny().get();
-                MessageDto respMsg = rpcClient.request(modChannelKey, MessageCreator.notifyUnit(notifyUnitParams));
+                Optional<String> modChannelKey = modChannelKeys.stream().filter(key -> key.equals(transUnit.getRemoteKey())).findAny();
+                MessageDto respMsg = rpcClient.request(modChannelKey.get(), MessageCreator.notifyUnit(notifyUnitParams));
                 if (!MessageUtils.statusOk(respMsg)) {
                     // 提交/回滚失败的消息处理
                     List<Object> params = Arrays.asList(notifyUnitParams, transUnit.getModId());
