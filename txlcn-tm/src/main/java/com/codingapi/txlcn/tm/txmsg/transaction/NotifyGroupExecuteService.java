@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.tm.txmsg.transaction;
 
+import com.alibaba.fastjson.JSONObject;
 import com.codingapi.txlcn.common.exception.TransactionException;
 import com.codingapi.txlcn.common.exception.TxManagerException;
 import com.codingapi.txlcn.logger.TxLogger;
@@ -77,12 +78,18 @@ public class NotifyGroupExecuteService implements RpcExecuteService {
             if (commitState == 1) {
                 List<TransactionUnit> transactionUnits = dtxContext.transactionUnits();
                 List<String> remoteKeys = SocketManager.getInstance().getChannels().stream().map(c -> c.remoteAddress().toString()).collect(Collectors.toList());
-                if(transactionUnits.stream().allMatch(t -> remoteKeys.contains(t.getRemoteKey()))){
+                TransactionUnit errUnit = null;
+                for(TransactionUnit unit : transactionUnits){
+                    if(!remoteKeys.contains(unit.getRemoteKey())){
+                        errUnit = unit;
+                    }
+                }
+                if(errUnit==null){
                     transactionManager.commit(dtxContext);
                 }else{
                     transactionManager.rollback(dtxContext);
                     commitState = 0;
-                    log.warn("部分参与者服务异常！ groupId=" + transactionCmd.getGroupId());
+                    log.warn("部分参与者服务异常！ groupId=" + transactionCmd.getGroupId() + "  errUnit=" + JSONObject.toJSONString(errUnit));
                 }
             } else if (commitState == 0) {
                 transactionManager.rollback(dtxContext);

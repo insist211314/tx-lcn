@@ -14,8 +14,8 @@ PID_FILE=$APP_HOME'/bin/program.pid'
 LOG_DIR=$APP_HOME/logs/
 CLASSPATH=${APP_HOME}'/conf'
 
-JMX_PORT=21789
-DEBUG_PORT=21781
+JMX_PORT=22039
+DEBUG_PORT=22031
 
 JAVA_OPTS=" -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/urandom -Dlog4j2.AsyncQueueFullPolicy=Discard"
 JAVA_OPTS+=" -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
