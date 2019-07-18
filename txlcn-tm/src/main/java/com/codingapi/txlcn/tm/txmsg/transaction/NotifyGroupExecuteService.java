@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,18 +79,18 @@ public class NotifyGroupExecuteService implements RpcExecuteService {
             if (commitState == 1) {
                 List<TransactionUnit> transactionUnits = dtxContext.transactionUnits();
                 List<String> remoteKeys = SocketManager.getInstance().getChannels().stream().map(c -> c.remoteAddress().toString()).collect(Collectors.toList());
-                TransactionUnit errUnit = null;
+                List<TransactionUnit> errUnitList = new ArrayList<>();
                 for(TransactionUnit unit : transactionUnits){
                     if(!remoteKeys.contains(unit.getRemoteKey())){
-                        errUnit = unit;
+                        errUnitList.add(unit);
                     }
                 }
-                if(errUnit==null){
+                if(errUnitList.size()==0){
                     transactionManager.commit(dtxContext);
                 }else{
                     transactionManager.rollback(dtxContext);
                     commitState = 0;
-                    log.warn("部分参与者服务异常！ groupId=" + transactionCmd.getGroupId() + "  errUnit=" + JSONObject.toJSONString(errUnit));
+                    log.warn("部分参与者服务异常！ groupId=" + transactionCmd.getGroupId() + "  errUnitList=" + JSONObject.toJSONString(errUnitList));
                 }
             } else if (commitState == 0) {
                 transactionManager.rollback(dtxContext);
