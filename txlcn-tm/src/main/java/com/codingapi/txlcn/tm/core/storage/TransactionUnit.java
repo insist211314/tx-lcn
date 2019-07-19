@@ -30,6 +30,10 @@ import java.util.Objects;
 public class TransactionUnit implements Serializable {
 
     /**
+     * 模块名称
+     */
+    private String appName;
+    /**
      * 事务单元所在模块标识
      */
     private String modId;
@@ -44,10 +48,6 @@ public class TransactionUnit implements Serializable {
      */
     private String unitId;
 
-    /**
-     * 远程连接地址
-     */
-    private String remoteKey;
 
     @Override
     public boolean equals(Object o) {

@@ -177,7 +177,7 @@ public class SocketManager {
     public List<String> removeKeys(String moduleName) {
         List<String> allKeys = new ArrayList<>();
         for (Channel channel : channels) {
-            if (moduleName.equals(getModuleName(channel))) {
+            if (moduleName.equals(getModId(channel))) {
                 allKeys.add(channel.remoteAddress().toString());
             }
         }
@@ -229,6 +229,11 @@ public class SocketManager {
         return getModuleName(key);
     }
 
+    public String getModId(Channel channel) {
+        String key = channel.remoteAddress().toString();
+        return getModId(key);
+    }
+
     /**
      * 获取模块名称
      *
@@ -238,6 +243,17 @@ public class SocketManager {
     public String getModuleName(String remoteKey) {
         AppInfo appInfo = appNames.get(remoteKey);
         return appInfo == null ? null : appInfo.getAppName();
+    }
+
+    /**
+     * 获取模块名称
+     *
+     * @param remoteKey 远程唯一标识
+     * @return 模块名称
+     */
+    public String getModId(String remoteKey) {
+        AppInfo appInfo = appNames.get(remoteKey);
+        return appInfo == null ? null : appInfo.getLabelName();
     }
 
     public List<AppInfo> appInfos() {

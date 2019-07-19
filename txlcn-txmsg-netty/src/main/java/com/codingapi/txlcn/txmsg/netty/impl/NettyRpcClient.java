@@ -108,6 +108,11 @@ public class NettyRpcClient extends RpcClient {
     }
 
     @Override
+    public String getModId(String remoteKey) {
+        return SocketManager.getInstance().getModId(remoteKey);
+    }
+
+    @Override
     public List<AppInfo> apps() {
         return SocketManager.getInstance().appInfos();
     }

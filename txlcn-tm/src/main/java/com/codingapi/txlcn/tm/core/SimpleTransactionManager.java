@@ -75,16 +75,16 @@ public class SimpleTransactionManager implements TransactionManager {
     }
 
     @Override
-    public void join(DTXContext dtxContext, String unitId, String unitType, String modId, String remoteKey, int userState) throws TransactionException {
+    public void join(DTXContext dtxContext, String unitId, String unitType, String appName, String modId, String remoteKey, int userState) throws TransactionException {
         //手动回滚时设置状态为回滚状态 0
         if (userState == 0) {
             dtxContext.resetTransactionState(0);
         }
         TransactionUnit transactionUnit = new TransactionUnit();
+        transactionUnit.setAppName(appName);
         transactionUnit.setModId(modId);
         transactionUnit.setUnitId(unitId);
         transactionUnit.setUnitType(unitType);
-        transactionUnit.setRemoteKey(remoteKey);
         dtxContext.join(transactionUnit);
     }
 
@@ -156,8 +156,7 @@ public class SimpleTransactionManager implements TransactionManager {
                     // record exception
                     throw new RpcException("offline mod.");
                 }
-                Optional<String> modChannelKey = modChannelKeys.stream().filter(key -> key.equals(transUnit.getRemoteKey())).findAny();
-                MessageDto respMsg = rpcClient.request(modChannelKey.get(), MessageCreator.notifyUnit(notifyUnitParams));
+                MessageDto respMsg = rpcClient.request(modChannelKeys.get(0), MessageCreator.notifyUnit(notifyUnitParams));
                 if (!MessageUtils.statusOk(respMsg)) {
                     // 提交/回滚失败的消息处理
                     List<Object> params = Arrays.asList(notifyUnitParams, transUnit.getModId());

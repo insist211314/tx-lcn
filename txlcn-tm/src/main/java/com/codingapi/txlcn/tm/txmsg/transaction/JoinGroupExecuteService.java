@@ -17,6 +17,7 @@ package com.codingapi.txlcn.tm.txmsg.transaction;
 
 import com.codingapi.txlcn.common.exception.TransactionException;
 import com.codingapi.txlcn.common.exception.TxManagerException;
+import com.codingapi.txlcn.common.util.id.ModIdProvider;
 import com.codingapi.txlcn.logger.TxLogger;
 import com.codingapi.txlcn.tm.core.DTXContext;
 import com.codingapi.txlcn.tm.core.DTXContextRegistry;
@@ -48,12 +49,14 @@ public class JoinGroupExecuteService implements RpcExecuteService {
     private final RpcClient rpcClient;
 
 
+
     @Autowired
     public JoinGroupExecuteService(TransactionManager transactionManager,
                                    DTXContextRegistry dtxContextRegistry, RpcClient rpcClient) {
         this.transactionManager = transactionManager;
         this.dtxContextRegistry = dtxContextRegistry;
         this.rpcClient = rpcClient;
+
     }
 
 
@@ -65,7 +68,7 @@ public class JoinGroupExecuteService implements RpcExecuteService {
             txLogger.txTrace(transactionCmd.getGroupId(), joinGroupParams.getUnitId(), "unit:{} try join group:{}",
                     joinGroupParams.getUnitId(), transactionCmd.getGroupId());
             transactionManager.join(dtxContext, joinGroupParams.getUnitId(), joinGroupParams.getUnitType(),
-                    rpcClient.getAppName(transactionCmd.getRemoteKey()), transactionCmd.getRemoteKey(), joinGroupParams.getTransactionState());
+                    rpcClient.getAppName(transactionCmd.getRemoteKey()), rpcClient.getModId(transactionCmd.getRemoteKey()), transactionCmd.getRemoteKey(), joinGroupParams.getTransactionState());
             txLogger.txTrace(transactionCmd.getGroupId(), joinGroupParams.getUnitId(), "unit:{} joined.",
                     joinGroupParams.getUnitId());
         } catch (TransactionException e) {

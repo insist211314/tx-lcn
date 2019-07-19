@@ -25,6 +25,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Description:
@@ -34,6 +35,8 @@ import java.util.Objects;
  */
 public class ApplicationInformation {
 
+    private static final String UID = UUID.randomUUID().toString().replace("_", "").substring(0,7);
+
     /**
      * 模块标识
      *
@@ -42,10 +45,7 @@ public class ApplicationInformation {
      * @return 标识
      */
     public static String modId(ConfigurableEnvironment environment, ServerProperties serverProperties) {
-
-        String applicationName = environment.getProperty("spring.application.name");
-        applicationName = StringUtils.hasText(applicationName) ? applicationName : "application";
-        return applicationName + ":" + serverPort(serverProperties);
+        return getIpAddress() + ":" + serverPort(serverProperties) + ":" + UID;
     }
 
     /**

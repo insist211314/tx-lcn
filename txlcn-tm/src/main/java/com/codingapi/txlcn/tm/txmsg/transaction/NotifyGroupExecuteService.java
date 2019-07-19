@@ -25,6 +25,7 @@ import com.codingapi.txlcn.tm.core.TransactionManager;
 import com.codingapi.txlcn.tm.core.storage.TransactionUnit;
 import com.codingapi.txlcn.tm.txmsg.RpcExecuteService;
 import com.codingapi.txlcn.tm.txmsg.TransactionCmd;
+import com.codingapi.txlcn.txmsg.RpcClient;
 import com.codingapi.txlcn.txmsg.netty.bean.SocketManager;
 import com.codingapi.txlcn.txmsg.params.NotifyGroupParams;
 import lombok.extern.slf4j.Slf4j;
@@ -52,10 +53,13 @@ public class NotifyGroupExecuteService implements RpcExecuteService {
 
     private final DTXContextRegistry dtxContextRegistry;
 
+    private final RpcClient rpcClient;
+
     @Autowired
-    public NotifyGroupExecuteService(TransactionManager transactionManager, DTXContextRegistry dtxContextRegistry) {
+    public NotifyGroupExecuteService(TransactionManager transactionManager, DTXContextRegistry dtxContextRegistry,RpcClient rpcClient) {
         this.transactionManager = transactionManager;
         this.dtxContextRegistry = dtxContextRegistry;
+        this.rpcClient = rpcClient;
     }
 
     @Override
@@ -78,10 +82,10 @@ public class NotifyGroupExecuteService implements RpcExecuteService {
 
             if (commitState == 1) {
                 List<TransactionUnit> transactionUnits = dtxContext.transactionUnits();
-                List<String> remoteKeys = SocketManager.getInstance().getChannels().stream().map(c -> c.remoteAddress().toString()).collect(Collectors.toList());
+                List<String> modList = SocketManager.getInstance().getChannels().stream().map(c -> c.remoteAddress().toString()).map(key -> rpcClient.getModId(key)).collect(Collectors.toList());
                 List<TransactionUnit> errUnitList = new ArrayList<>();
                 for(TransactionUnit unit : transactionUnits){
-                    if(!remoteKeys.contains(unit.getRemoteKey())){
+                    if(!modList.contains(unit.getModId())){
                         errUnitList.add(unit);
                     }
                 }

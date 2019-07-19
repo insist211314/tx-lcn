@@ -96,7 +96,7 @@ public class TxExceptionServiceImpl implements TxExceptionService {
         if(lists.get(0) instanceof Integer){
             return (Integer)lists.get(0);
         }else if(lists.get(0) instanceof Byte){
-            ((Byte)lists.get(0)).intValue();
+            return ((Byte)lists.get(0)).intValue();
         }
         return (Integer)lists.get(0);
     }

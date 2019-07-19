@@ -137,6 +137,14 @@ public abstract class RpcClient {
      */
     public abstract String getAppName(String remoteKey);
 
+    /**
+     * 获取模块名称
+     *
+     * @param remoteKey 远程标识
+     * @return 应用名称
+     */
+    public abstract String getModId(String remoteKey);
+
 
     /**
      * 获取所有的模块信息
