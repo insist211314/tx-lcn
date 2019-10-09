@@ -31,6 +31,7 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.update.Update;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -52,7 +53,12 @@ public class TxcJdbcEventListener extends P6spyJdbcEventListener {
         String sql = statementInformation.getSqlWithValues();
 
         // 当前业务链接
-        DTXLocalContext.cur().setResource(statementInformation.getStatement().getConnection());
+        java.sql.Statement istatement = statementInformation.getStatement();
+        Connection connection = istatement.getConnection();
+        DTXLocalContext context = DTXLocalContext.cur();
+        context.setResource(connection);
+
+        //DTXLocalContext.cur().setResource(statementInformation.getStatement().getConnection());
 
         // 拦截处理
         try {

@@ -15,6 +15,7 @@
  */
 package com.codingapi.txlcn.tc.aspect.weave;
 
+import com.codingapi.txlcn.tc.annotation.DTXPropagation;
 import com.codingapi.txlcn.tc.aspect.DTXInfo;
 import com.codingapi.txlcn.tc.core.DTXLocalContext;
 import com.codingapi.txlcn.tc.core.DTXServiceExecutor;
@@ -50,6 +51,12 @@ public class DTXLogicWeaver {
     }
 
     public Object runTransaction(DTXInfo dtxInfo, BusinessCallback business) throws Throwable {
+
+        if(!globalContext.hasTxContext()){
+            if(dtxInfo.getTransactionPropagation() == DTXPropagation.SUPPORTS){
+                return business.call();
+            }
+        }
 
         if (Objects.isNull(DTXLocalContext.cur())) {
             DTXLocalContext.getOrNew();
